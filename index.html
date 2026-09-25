@@ -148,7 +148,7 @@ p{margin:0 0 12px}
 <header>
   <img src="icon-192.png" alt="">
   <h1>扇屋 法面提案</h1>
-  <span class="ver">v0.9</span>
+  <span class="ver">v0.11</span>
 </header>
 
 <main id="main"><div class="wrap">
@@ -383,15 +383,14 @@ const CASES=[["法面保護工（モルタル吹付）","case1",["mortar"]],["�
  ["砂防堰堤脇の表層崩壊（郡上市）","gujo",["mat","monorail"],"深さ50cm未満の表層崩壊で、クレーンも吹付機も入らず残土も出せない現場です。原因を降雨時に地山へ水が溜まることと見て、縦排水材＋植生マット＋アンカーピンと横ロープの組み合わせを、モノレール搬入・人力施工で提案しました。"],
  ["民家に近い法面の侵食・落石対策（関市）","seki",["epm"],"法尻から民家まで約1m、車両も吹付機も入らない1:0.6の風化土砂〜軟岩の法面です。人力とロープアクセスで施工できるEPM工法で、侵食と小規模な剥落を抑える計画を立てました。"],
  ["簡易法枠による法面保護（土岐市）","toki",["kanni","drainpipe"],"1:1.2の粘性土で湧水が部分的にある法面です。浅層すべりの安定計算で必要抑止力を求めて枠を設計し、枠内は植生で開放、湧水箇所だけモルタル吹付と水抜きパイプにしました。"]];
-const HP="https://ohgiya.link/wp-content/uploads/";
-const KIMG={mortar:HP+"2022/09/445d72ca271d19397d23a82fe0f4688d-1024x768.jpg",kanni:HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg","fukitsuke-waku":HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg",seed:HP+"2022/09/c97a61e38d62cd0c26fa4c24f383a3b8-1024x768.jpg",mat:HP+"2022/09/4dcc2ae6ba5fbfb26450f8d428c4f965-1024x768.jpg",ropenet:HP+"2022/09/c9f145272ffe94c60f6a85108947b8cf-1024x768.jpg",newresp:HP+"2022/09/d191ebeb6768da3524590b13a429d369-1024x768.jpg",nail:HP+"2022/09/17f9df940433d296a0c21a827889e620.jpg",anchor:HP+"2022/09/9ccf23820ac9641f76d57c6f80558028.jpg",monorail:HP+"2022/09/846f92ce1e60a322f0f5e643a9cb55cc.jpg",jet:HP+"2026/01/20251225_105511.jpg",epm:"img/koho/epm.jpg",drainpipe:"img/koho/drainpipe.jpg",saam:"img/koho/saam.jpg"};
+const KIMG={mortar:"img/hp/mortar-1.jpg",kanni:"img/hp/kanni.jpg","fukitsuke-waku":"img/hp/kanni.jpg",seed:"img/hp/seed.jpg",mat:"img/site/mat.jpg",ropenet:"img/site/ropenet.jpg",newresp:"img/site/newresp.jpg",nail:"img/hp/nail.jpg",anchor:"img/site/anchor.jpg",monorail:"img/hp/monorail.jpg",jet:"img/site/jet.jpg",epm:"img/koho/epm.jpg",drainpipe:"img/koho/drainpipe.jpg",saam:"img/koho/saam.jpg"};
 Object.assign(KIMG,{mortar:"img/hp/mortar-1.jpg","fukitsuke-waku":"img/hp/fukitsuke-waku.jpg",kanni:"img/hp/kanni.jpg",seed:"img/hp/seed.jpg",kiban:"img/hp/kiban.jpg",nail:"img/hp/nail.jpg",anchor:"img/hp/anchor.jpg",monorail:"img/hp/monorail.jpg"});
 const KSRC={epm:"写真：トーエス資料",drainpipe:"写真：ダイカ資料"};
 const loc=(sl,n)=>Array.from({length:n},(_,i)=>`img/cases/${sl}-${i+1}.jpg`);
-const CIMG={case1:[KIMG.mortar],case2:[KIMG.kanni],case3:[KIMG.seed,KIMG.mat],case4:[KIMG.ropenet],case5:[KIMG.newresp],case6:[KIMG.nail,KIMG.anchor,HP+"2022/09/e519e59f332182ddf4c0bae5edbcdc4b.jpg",HP+"2022/09/798031ba93f8dc5709edc102c93768cf.jpg"],case7:[KIMG.monorail],case8:[KIMG.jet],
+const CIMG={case1:[KIMG.mortar],case2:[KIMG.kanni],case3:[KIMG.seed,KIMG.mat],case4:[KIMG.ropenet],case5:[KIMG.newresp],case6:[KIMG.nail,KIMG.anchor,"img/site/anchor-2.jpg","img/site/anchor-3.jpg"],case7:[KIMG.monorail],case8:[KIMG.jet],
  tejikara:loc("tejikara",2),higashikuwabara:loc("higashikuwabara",2),mitsuikitamachi:loc("mitsuikitamachi",2),ichinomiya:loc("ichinomiya",2),iwasaka:loc("iwasaka",2),saam:loc("saam",2),iwado:loc("iwado",2),gujo:loc("gujo",2)};
 const hp=n=>`img/hp/${n}.jpg`;
-Object.assign(CIMG,{case1:[hp("mortar-1"),hp("mortar-2"),hp("mortar-3"),hp("rope"),HP+"2022/09/445d72ca271d19397d23a82fe0f4688d-1024x768.jpg"],case2:[hp("kanni"),hp("fukitsuke-waku"),hp("kiban"),hp("waku-drone"),HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg"],case3:[hp("seed"),HP+"2022/09/c97a61e38d62cd0c26fa4c24f383a3b8-1024x768.jpg",HP+"2022/09/4dcc2ae6ba5fbfb26450f8d428c4f965-1024x768.jpg"],case6:[hp("nail"),hp("anchor"),hp("drill-1"),hp("drill-2"),...CIMG.case6],case7:[hp("monorail"),KIMG.monorail===hp("monorail")?HP+"2022/09/846f92ce1e60a322f0f5e643a9cb55cc.jpg":KIMG.monorail]});
+Object.assign(CIMG,{case1:[hp("mortar-1"),hp("mortar-2"),hp("mortar-3"),hp("rope")],case2:[hp("kanni"),hp("fukitsuke-waku"),hp("kiban"),hp("waku-drone")],case3:[hp("seed"),"img/site/mat.jpg"],case6:[hp("nail"),hp("anchor"),hp("drill-1"),hp("drill-2"),"img/site/anchor.jpg","img/site/anchor-2.jpg","img/site/anchor-3.jpg"],case7:[hp("monorail")]});
 const FIMG={veg:"seed",spray:"mortar",frame:"kanni",drain:"drainpipe",rock:"ropenet",soil:"jet",maint:"saam",temp:"monorail"};
 function media(src,zones,alt,note){
  if(!src)return `<div class="media">${fig(zones||[])}</div>`;

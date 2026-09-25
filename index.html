@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f8a2d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="扇屋 提案">
+<title>扇屋 法面提案</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2f8a2d; --green-deep:#1e5a24; --green-pale:#e3f1df;
+  --soil:#a9793f; --soil-pale:#f3e8d8;
+  --ink:#1c2420; --sub:#56625a; --line:#d5dbd4;
+  --bg:#f3f5f1; --panel:#ffffff; --hl:#f2b01e;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --green:#5cbf57; --green-deep:#9fdc98; --green-pale:#1f3321;
+  --soil:#d2a46a; --soil-pale:#35291a;
+  --ink:#e8ede7; --sub:#a4b0a6; --line:#34403a;
+  --bg:#141a16; --panel:#1c241f; --hl:#f2b01e;}}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:"BIZ UDPGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  font-size:17px;line-height:1.75;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.app{display:flex;flex-direction:column;height:100%}
+header{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--green);color:#fff}
+header img{width:34px;height:34px;border-radius:8px}
+header h1{font-size:19px;margin:0;font-weight:700;letter-spacing:.04em}
+header .ver{margin-left:auto;font-size:12px;opacity:.8}
+main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.wrap{max-width:980px;margin:0 auto;padding:24px 20px 40px}
+nav.tabs{display:flex;background:var(--panel);border-top:1px solid var(--line)}
+nav.tabs button{flex:1;border:0;background:none;padding:10px 4px 12px;font-size:14px;color:var(--sub);border-top:4px solid transparent;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--green-deep);border-top-color:var(--green);font-weight:700}
+nav.tabs svg{display:block;margin:0 auto 2px;width:26px;height:26px}
+section[hidden]{display:none}
+h2{font-size:26px;line-height:1.4;margin:0 0 8px}
+h3{font-size:20px;margin:28px 0 10px}
+p{margin:0 0 12px}
+.lead{color:var(--sub);max-width:40em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--soil-pale);color:var(--soil);margin-left:6px;vertical-align:2px}
+
+/* 会社 */
+.mission{font-size:30px;line-height:1.45;font-weight:700;color:var(--green-deep);margin:4px 0 16px;max-width:16em}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:16px}
+.facts dt{color:var(--sub)}.facts dd{margin:0}
+
+/* 工法 */
+.family{margin-bottom:26px}
+.family h3{display:flex;align-items:center;gap:10px;margin-top:0}
+.family h3 i{width:14px;height:14px;border-radius:3px;display:inline-block}
+.kcard{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:14px 16px;cursor:pointer;width:100%}
+.kcard b{display:block;font-size:18px}
+.kcard span{color:var(--sub);font-size:15px}
+.detail{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:10;padding-top:env(safe-area-inset-top,0px)}
+.detail[hidden]{display:none}
+.sheet{background:var(--panel);width:100%;max-width:860px;max-height:92%;overflow-y:auto;border-radius:18px 18px 0 0;padding:20px 22px calc(28px + env(safe-area-inset-bottom,0px))}
+.sheet .close{float:right;border:1px solid var(--line);background:none;border-radius:99px;padding:4px 16px;cursor:pointer}
+.photo{aspect-ratio:16/9;background:var(--green-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:14px;overflow:hidden;margin:12px 0}
+.photo img{width:100%;height:100%;object-fit:cover}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.two h4{margin:0 0 4px;font-size:15px;color:var(--sub)}
+.two ul,.steps{margin:0;padding-left:1.2em}
+.steps li{margin-bottom:4px}
+.effort{display:inline-block;min-width:3.2em;font-size:12px;text-align:center;border-radius:4px;padding:0 6px;margin-left:6px}
+.e1{background:var(--green-pale);color:var(--green-deep)}
+.e2{background:var(--soil-pale);color:var(--soil)}
+.e3{background:#f8dcd6;color:#9c3a26}
+.basis{font-size:14px;color:var(--sub);border-top:1px solid var(--line);margin-top:14px;padding-top:10px}
+
+/* 断面図 */
+.section-fig{width:100%;max-width:560px;display:block;margin:6px auto}
+.section-fig .z{fill:transparent;stroke:none;transition:fill .25s}
+.section-fig .z.on{fill:var(--hl);fill-opacity:.55}
+.section-fig .lbl{font-size:12px;fill:var(--sub)}
+
+/* アドバイザー */
+.q{margin-bottom:18px}
+.q p{font-weight:700;margin-bottom:6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{border:1.5px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 16px;cursor:pointer;min-height:48px}
+.opts button[aria-pressed="true"]{border-color:var(--green);background:var(--green-pale);color:var(--green-deep);font-weight:700}
+.result{margin-top:8px}
+.result .main{border-left:6px solid var(--green);padding-left:14px}
+.result .main b{font-size:24px}
+.alt{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.alt button{border:1px solid var(--line);background:none;border-radius:99px;padding:4px 14px;cursor:pointer}
+.warn{background:var(--soil-pale);border-radius:10px;padding:10px 14px;font-size:15px;margin-top:12px}
+.mode{display:flex;gap:8px;margin:0 0 18px}
+.mode button{border:0;border-bottom:3px solid transparent;background:none;padding:6px 4px;margin-right:14px;font-size:17px;cursor:pointer;color:var(--sub)}
+.mode button[aria-pressed="true"]{border-bottom-color:var(--green);color:var(--ink);font-weight:700}
+
+/* 診断 */
+.diag b{font-size:19px;display:block;margin-bottom:4px}
+.line-btn{display:inline-block;background:#06c755;color:#fff;text-decoration:none;border-radius:10px;padding:10px 18px;font-weight:700;margin-top:8px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <img src="icon-192.png" alt="">
+  <h1>扇屋 法面提案</h1>
+  <span class="ver">v0.7</span>
+</header>
+
+<main id="main"><div class="wrap">
+
+<!-- 会社 -->
+<section id="t-company">
+  <p class="mission">土砂災害・水害から、一人でも多くの人を救う会社でありたい。</p>
+  <p class="lead">岐阜・愛知の扇状地に根ざし、危険な法面を守り、崩れた斜面を元に戻す。法面保護から落石・地すべり対策、地盤改良まで、自社施工で一貫して対応します。</p>
+  <div class="panel" style="margin-top:18px">
+    <dl class="facts">
+      <dt>社名</dt><dd>株式会社扇屋</dd>
+      <dt>代表者</dt><dd>代表取締役 河野 春男</dd>
+      <dt>所在地</dt><dd>岐阜県各務原市蘇原野口町2-8</dd>
+      <dt>建設業許可</dt><dd>岐阜県知事許可（一般）第6415号<br>土木工事業／とび・土工工事業／造園工事業</dd>
+      <dt>事業部</dt><dd>法面・地盤改良事業部／外構・エクステリア事業部</dd>
+      <dt>取り組み</dt><dd>事業継続力強化計画の認定取得（緊急時の早期復旧体制）／SDGs宣言（2022年）／資格取得支援・定年後再雇用</dd>
+      <dt>電話</dt><dd>代表 058-383-6210／フリーコール 0120-998-005</dd>
+    </dl>
+  </div>
+  <h3>進め方</h3>
+  <p class="lead" style="margin-bottom:10px">工事だけでなく、その手前から引き受けます。</p>
+  <div class="grid">
+    <div class="panel"><b>1　現地調査</b><br>崩れ方・湧水・地質を見て、写真と横断で整理します。</div>
+    <div class="panel"><b>2　工法の比較と設計計算</b><br>複数案を比べ、選んだ工法は基準類に沿って計算します。</div>
+    <div class="panel"><b>3　施工計画</b><br>重機が入らない現場でも、モノレールと人力で段取りを組みます。</div>
+    <div class="panel"><b>4　施工</b><br>法面・落石・地すべり・地盤改良まで自社施工です。</div>
+  </div>
+  <h3>自社で施工できる範囲</h3>
+  <div id="family-summary" class="grid"></div>
+  <h3>代表的な事例</h3>
+  <div class="grid" id="cases-top"></div>
+  <p style="margin-top:12px"><button class="kcard" style="width:auto" id="go-cases">すべての実績を見る</button></p>
+</section>
+
+<!-- 工法 -->
+<section id="t-methods" hidden>
+  <h2>工法の一覧</h2>
+  <p class="lead">工法をタップすると、向く条件・向かない条件・施工の手間と、断面上で効く位置を表示します。</p>
+  <div id="families"></div>
+</section>
+
+<!-- 実績 -->
+<section id="t-cases" hidden>
+  <h2>施工・提案の実績</h2>
+  <p class="lead">困りごとで絞り込むと、同じような現場の事例が出ます。<span class="tag">写真差し替え待ち</span></p>
+  <div class="opts" id="case-filter" style="margin:14px 0 18px"></div>
+  <div class="grid" id="cases"></div>
+</section>
+
+<!-- アドバイザー -->
+<section id="t-advisor" hidden>
+  <h2>工法選定アドバイザー</h2>
+  <p class="lead">現場の状況を選ぶと、第一候補の工法とその理由、施工の手間がどこにかかるかを示します。</p>
+  <div class="mode">
+    <button aria-pressed="true" data-mode="fwd">現場条件から選ぶ</button>
+    <button aria-pressed="false" data-mode="rev">工法から条件を見る</button>
+  </div>
+  <div id="adv-fwd">
+    <div id="questions"></div>
+    <div class="panel result" id="result"><p class="lead" style="margin:0">上の質問に答えると、ここに候補が出ます。</p></div>
+  </div>
+  <div id="adv-rev" hidden><div id="rev-list" class="grid"></div></div>
+</section>
+
+<!-- 診断 -->
+<section id="t-diag" hidden>
+  <h2>診断・ご相談</h2>
+  <p class="lead">工事の前に、まず状態を見てほしいという相談にも応じています。</p>
+  <div class="grid">
+    <div class="panel diag"><b>法面・斜面診断</b>変状（亀裂・はらみ・湧水・落石の兆候）を現地で確認し、対策の要否と工法の方向性を整理します。</div>
+    <div class="panel diag"><b>擁壁診断</b>傾き・ひび割れ・水抜き孔の状態から、補修で足りるか、造り替えが要るかを判断します。</div>
+    <div class="panel diag"><b>ブロック塀診断</b>自宅、通学路、通勤路のブロック塀を確認します。各務原市では、道路に面した一定の条件のブロック塀を撤去するときに補助金が出る場合があり、申請もお手伝いします。</div>
+    <div class="panel diag"><b>太陽光発電設備まわりの擁壁・法面</b>設置地の法面・擁壁の安全性を確認します。</div>
+  </div>
+  <h3>危ないブロック塀のサイン</h3>
+  <div class="grid">
+    <div class="panel"><b>ひび割れ・欠け</b></div>
+    <div class="panel"><b>傾き・ぐらつき</b></div>
+    <div class="panel"><b>控え壁がない</b></div>
+    <div class="panel"><b>鉄筋のサビが出ている</b></div>
+    <div class="panel"><b>透かしブロックが連続している</b></div>
+    <div class="panel"><b>基礎が浅い・露出している</b></div>
+  </div>
+  <p style="margin-top:10px">ご自身で確かめたい方は、中京エクステリア建設業協会監修の<a href="https://www.o-seven.co.jp/~direct/item/3086" target="_blank" rel="noopener">ブロック塀診断カルテ</a>も使えます。</p>
+  <h3>擁壁で見るところ</h3>
+  <p class="lead">国土交通省 国総研「既存造成宅地擁壁の老朽化診断 目視点検調査要領」の着眼点です。当てはまる項目が多いほど、早めの診断をおすすめします。</p>
+  <div class="grid">
+    <div class="panel"><b>水</b><br>表面が常に湿っている、目地や水抜き穴から水がしみ出す・流れた跡がある、水抜き穴が詰まっている・少ない</div>
+    <div class="panel"><b>ひび割れ</b><br>目地や積石に沿ったひび、角部の斜めのひび、開いたひびから水が出ている</div>
+    <div class="panel"><b>ずれ・開き</b><br>目地の前後のずれや開き（5mm未満／5mm〜2cm／2cm以上で見る）</div>
+    <div class="panel"><b>ふくらみ・傾き</b><br>表面のふくらみ、積石の浮き・抜け、前や後ろへの傾き</div>
+    <div class="panel"><b>白い析出物</b><br>ひびや目地から白いものが出ている（背面の水とひびのサイン）</div>
+    <div class="panel"><b>天端まわり</b><br>擁壁の上の排水溝の土砂詰まり・ずれ・ひび、地面の小さな陥没</div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <b>個人のお客様へ</b>
+    <p style="margin:4px 0 0">ブロック塀のひび割れなど、小さな不安はLINEで気軽にご相談いただけます。相談・お見積もりは無料です（フリーコール 0120-998-005）。</p>
+    <a class="line-btn" href="https://lin.ee/yNXI4Yp" target="_blank" rel="noopener">LINEで相談する</a>
+  </div>
+</section>
+
+</div></main>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-t="company"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20h18M5 20V9l7-5 7 5v11M10 20v-5h4v5"/></svg>扇屋について</button>
+  <button role="tab" aria-selected="false" data-t="methods"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20h18L8 5 3 12z"/><path d="M6 14l4 2M8 10l4 2"/></svg>工法</button>
+  <button role="tab" aria-selected="false" data-t="cases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 15l4-4 4 4 3-3 5 5"/></svg>実績</button>
+  <button role="tab" aria-selected="false" data-t="advisor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/></svg>選定アドバイザー</button>
+  <button role="tab" aria-selected="false" data-t="diag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V6h16v14M4 10h16M9 14h6"/></svg>診断・相談</button>
+</nav>
+</div>
+
+<div class="detail" id="detail" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+
+<script>
+/* ========= データ（ここを書き換えて育てる） =========
+   zone: 断面図で光らせる位置
+     surf=表面／shallow=表層(〜2m程度)／deep=深部・すべり面／rock=上方斜面の浮石／toe=道路際・斜面下部／ground=基礎地盤
+   effort: 1=軽い 2=中 3=重い（工程ごとの手間の目安。金額は出さない）
+   check: true の項目は扇屋の技術者の確認待ち
+*/
+const FAMILIES=[
+ {id:"veg",name:"植生系",color:"#5aa845",desc:"表面を緑で覆い、雨による侵食を防ぐ"},
+ {id:"spray",name:"吹付系",color:"#8c8f8a",desc:"モルタル・コンクリートで表面を覆い、風化と侵食を止める"},
+ {id:"frame",name:"法枠・補強系",color:"#a9793f",desc:"枠と補強材で表層〜深部の崩れを抑える"},
+ {id:"drain",name:"排水系",color:"#2f7fb5",desc:"斜面の中の水を抜き、崩れの原因そのものを減らす"},
+ {id:"rock",name:"落石対策系",color:"#6b5a8e",desc:"浮石を押さえる／落ちてきた石を止める"},
+ {id:"soil",name:"地盤改良系",color:"#3f7fa8",desc:"地盤そのものを固め、支持力と止水性を上げる"},
+ {id:"maint",name:"点検・維持管理",color:"#8a5a9e",desc:"すでにある対策工の状態を数字で確かめ、直す場所を絞る"},
+ {id:"temp",name:"仮設・運搬",color:"#c0503a",desc:"急斜面で人と資材を運び、工事を速く安全にする"}
+];
+const K=[
+ {id:"seed",f:"veg",name:"種子散布工",zone:["surf"],one:"緩い土砂法面を安価に早く緑化",
+  fit:["勾配が緩い（1:1.0程度より緩い）土砂法面","施工面積が広く、早く緑化したい"],
+  unfit:["岩盤・硬い土の法面","急勾配で種子が流れやすい面"],
+  steps:[["法面整形・清掃",1],["種子・肥料・ファイバーを水と混ぜて散布",1],["発芽までの養生",1]],basis:"道路土工 切土工・斜面安定工指針（植生工）",check:true},
+ {id:"mat",f:"veg",name:"植生シート・マット工",zone:["surf"],one:"種子付きのシート・マットを張り、施工直後から表面を守る",
+  fit:["施工直後の雨による侵食が心配な土砂法面","吹付機械が入りにくい小規模な面","しみ出す程度の湧水がある面（全閉型マット）"],unfit:["岩盤・凹凸の大きい面"],
+  steps:[["法面整形",1],["シート・マットの敷設",1],["止めピンでの固定",1]],basis:"道路土工 切土工・斜面安定工指針（植生工）",
+  prod:[{name:"ガンリョクマット1型",maker:"日新産業（岐阜）",spec:"全閉型の厚層植生マット（1m×5m）。生育基盤材入りで植生基材吹付と同等の緑化、しみ出す程度の湧水でも基盤材が流れにくい",use:"吹付機械を持ち込めない現場で"}],check:true},
+ {id:"kyakudo",f:"veg",name:"客土吹付工",zone:["surf"],one:"土壌の乏しい面に厚さ数cmの客土を吹付けて緑化",
+  fit:["土砂〜やせた土で、植物が育ちにくい面","中程度の勾配"],unfit:["硬岩・急勾配","湧水が多い面"],
+  steps:[["法面整形",1],["ラス張り（必要時）",2],["客土・種子の吹付",2],["養生",1]],basis:"道路土工 切土工・斜面安定工指針（植生工）",check:true},
+ {id:"kiban",f:"veg",name:"植生基材吹付工",zone:["surf"],one:"厚めの基材を吹付け、急勾配や岩でも緑化",
+  fit:["急勾配、風化岩・軟岩の面","景観・自然回復が求められる箇所"],unfit:["表層崩壊そのものを抑えたい（→法枠と併用）"],
+  steps:[["法面整形・浮石除去",2],["金網張り・アンカーピン",2],["基材の吹付（厚さ管理）",2],["養生",1]],basis:"道路土工 切土工・斜面安定工指針（植生工）",prod:[{name:"プララス網（NE-PL-50）",maker:"前田工繊",spec:"プラスチック製ラス網。約200g/m²で金網の約1/5の重さ、錆びない、モルタルが絡みやすいループ形状",use:"金網（ひし形金網）の代わりに"}],check:true},
+ {id:"mortar",f:"spray",name:"モルタル・コンクリート吹付工",zone:["surf"],one:"風化しやすい岩を覆い、剥落と侵食を止める",
+  fit:["風化・剥落が進む岩盤","緑化が求められない箇所"],unfit:["景観配慮が必要な箇所","背面の湧水を処理できない面（→水抜き必須）"],
+  steps:[["浮石除去・清掃",2],["金網張り",2],["水抜きパイプ設置",1],["吹付・厚さ管理",2]],basis:"道路土工 切土工・斜面安定工指針（吹付工）",prod:[{name:"プララス網（NE-PL-50）",maker:"前田工繊",spec:"プラスチック製ラス網。約200g/m²で金網の約1/5の重さ、錆びない、モルタルが絡みやすいループ形状",use:"金網（ひし形金網）の代わりに"}],check:true},
+ {id:"newresp",f:"spray",name:"ニューレスプ工法",zone:["surf","shallow"],one:"老朽化した吹付法面を、はつり取らずに補修・補強",
+  fit:["既設のモルタル・コンクリート吹付が劣化（ひび割れ・浮き・背面空洞）","道路や住宅に近く、大がかりな仮設柵を置けない箇所"],unfit:["吹付がすでに崩落し、効果を失っている面（→更新・別工法）"],
+  steps:[["吹付面の診断（劣化・空洞・風化領域の深さ）",2],["簡易な防護柵の設置",1],["補強鉄筋工（標準 L=1.0m、1本/m²）",2],["背面空洞注入工（空洞がある場合）",2],["せん断ボルト工（2本/m²）",1],["水抜きパイプ新設",1],["のり面清掃",1],["有機繊維補強モルタル吹付（t=7cm）",2]],
+  basis:"NETIS QS-110014-VE（活用促進技術）、ニューレスプ協会の技術資料・対策工パターン選定フロー",note:"はつり取りが不要なため、産業廃棄物・仮設・工期を抑えられます。",check:true},
+ {id:"fsc",f:"frame",name:"吹付受圧板工法（FSCパネル）",zone:["surf","shallow"],one:"老朽化吹付をはつらずに、吹付で受圧板を造って地山補強土と組み合わせる",
+  fit:["老朽化吹付の背面で風化領域が0.5m以上あり、補強が必要","受圧板の据付が難しい不陸の大きい面"],unfit:["必要抑止力が300kN/mを超える（→グラウンドアンカー）"],
+  steps:[["安定解析（必要抑止力の算定）",3],["地山補強土（ロックボルト）の削孔・挿入",3],["補強部材の組立",2],["繊維補強モルタルの吹付で受圧板を形成",2]],
+  basis:"NETIS KT-200077-A、鉄道総研の技術資料（設計・施工要領）",note:"配置間隔は最大2.0m、許容荷重56kNでD19のロックボルトに適用できます。",check:true},
+ {id:"epm",f:"frame",name:"EPM工法（侵食防止・表層土砂流出抑制）",zone:["surf","shallow"],one:"侵食防止マットと金網をアンカーで押さえ、層厚1m程度までの表層の侵食と土砂流出を止める",
+  fit:["層厚1m程度までの表層の侵食・土砂流出","1:0.5（60°）程度までの土砂法面","大型機械が入らない狭い現場（材料が軽く人力で施工できる）"],unfit:["崩壊深さが1mを超える（→法枠＋鉄筋挿入、アンカー）","1:0.5より急な面"],
+  steps:[["法面整形・清掃",1],["EPMマット敷設・補助アンカーピン固定",1],["EPMネット（菱形金網）張り",1],["アンカー削孔・挿入・定着（D19、2m×2m配置が標準）",2],["支圧バネ・突起付プレートで締め付け",1]],
+  basis:"NETIS CB-210015-A、トーエス 設計要領・施工マニュアル、のり枠工の設計・施工指針（すべり荷重の算定）",
+  note:"支圧バネが地盤の沈みに追従して押さえ続けるので、プレートの背面が浮きにくい構造です。",
+  prod:[{name:"EPMマット・EPMネット",maker:"トーエス",spec:"侵食防止マット（1.0m×3〜10m、防草型あり）＋菱形金網（1型 亜鉛アルミ合金めっき／2型 PE被覆）。アンカーはD19・L=0.5〜2.0m",use:"表層の侵食対策として"}],check:true},
+ {id:"kanni",f:"frame",name:"簡易法枠工",zone:["surf","shallow"],one:"軽量な枠で表土の滑落を抑え、枠内を緑化",
+  fit:["緩〜中勾配の土砂法面","小規模な表層のずれ","既存の樹木や表土をできるだけ残したい斜面"],unfit:["急勾配・崩壊の履歴がある面（→現場吹付法枠）"],
+  steps:[["法面整形",1],["金網張工",1],["配筋・組立材設置",2],["主アンカー工",1],["養生シート張工",1],["枠モルタル吹付",2],["枠内植生基材吹付",1]],basis:"のり枠工の設計・施工指針",
+  note:"基礎工が不要で、逆巻き施工もできます。",
+  prod:[{name:"イージーシェルフ工法",maker:"全国法面防災協会",spec:"NETIS KK-160021-VE。鉄筋と鉄製組立材だけで枠を組む簡易吹付法枠。A〜D・S・Pタイプ（枠350×150〜350×200、スパン1.3〜2.0m）",use:"Pタイプは鉄筋挿入工と併用できる"},{name:"アーチタイト",maker:"グリーンエース",spec:"簡易吹付法枠の鉄筋固定具（ステンレス）。ワンタッチで鉄筋を保持し、型枠なしで枠を吹き付けられる",use:"枠の組立を速くしたいとき"}],check:true},
+ {id:"fukitsuke-waku",f:"frame",name:"現場吹付法枠工",zone:["surf","shallow"],one:"現場で枠を吹付けて造り、表層崩壊を抑える",
+  fit:["表層崩壊のおそれがある土砂・風化岩法面","凹凸のある面にも追従させたい"],unfit:["深いすべり（→アンカー・鉄筋挿入と併用）"],
+  steps:[["仮設（モノレール・足場）",3],["型枠・鉄筋組立",2],["モルタル吹付",2],["枠内の緑化・吹付",2]],basis:"のり枠工の設計・施工指針",check:true},
+ {id:"nail",f:"frame",name:"鉄筋挿入工（ロックボルト）",zone:["shallow"],one:"鉄筋を地山に挿して、表層を一体化・補強",
+  fit:["急勾配の切土、表層〜中層の崩壊対策","法枠や受圧板と組み合わせる"],unfit:["深いすべり面（→アンカー）"],
+  steps:[["仮設（削孔機の据付足場）",3],["削孔",3],["鉄筋挿入・注入",2],["頭部の定着（法枠・受圧板）",2]],basis:"切土補強土工法 設計・施工要領（NEXCO）ほか",note:"崖錐堆積物など孔壁が崩れる地山では、二重管削孔に切り替えて定着を確保します（手力石山の施工事例）。",prod:[{name:"布パッカー（グラウトジャケット等）",maker:"藤原産業（取扱）",spec:"布製の筒でグラウトを包み、空隙の多い地山でのグラウトの逸走を防ぐ",use:"崖錐・空洞の多い地山で"}],check:true},
+ {id:"anchor",f:"frame",name:"グラウンドアンカー工",zone:["deep"],one:"すべり面より深い地盤に定着し、斜面を締め付ける",
+  fit:["すべり面が深い崩壊・地すべり","受圧板・法枠と組み合わせる"],unfit:["調査（ボーリング・動態観測）がない段階での本設計"],
+  steps:[["調査・設計（すべり面の把握）",3],["仮設",3],["削孔",3],["アンカー挿入・注入",2],["緊張・定着・確認試験",2]],basis:"グラウンドアンカー設計・施工基準、同解説（地盤工学会）",prod:[{name:"布パッカー（グラウトジャケット等）",maker:"藤原産業（取扱）",spec:"布製の筒でグラウトを包み、空隙の多い地山でのグラウトの逸走を防ぐ",use:"崖錐・空洞の多い地山で"}],check:true},
+ {id:"drainpipe",f:"drain",name:"打込み式排水パイプ（水抜き工）",zone:["shallow"],one:"穴あきパイプを地山に打ち込み、斜面内の水を抜く",
+  fit:["湧水・しみ出しがある法面","表層の水が原因の浸食・表層すべり","重機が入らない山間部（打込みのみでプレボーリング不要）"],unfit:["硬い地盤・礫が多い地盤（プレ削孔が必要）","深い帯水層の排水（→水抜きボーリング）"],
+  steps:[["位置出し",1],["打設機械の据付",2],["打設・継ぎ足し（20〜24本/日が目安）",1],["流末処理",1]],
+  basis:"道路土工 切土工・斜面安定工指針（水平排水孔：長さ2m以上、上向き5度程度）、道路土工 排水工指針",
+  note:"法枠や吹付と組み合わせると、枠内の植生が水で流されるのを防げます。",
+  prod:[{name:"DKドレーンパイプ",maker:"ダイカ",spec:"ステンレス製（SUS436L相当）φ48.6mm、1本1,065mmを両端ネジで継ぐ。先端ビットを直接打撃して貫入",use:"錆に強い水抜きとして"},
+        {name:"恒久排水補強パイプ（PDR工法）",maker:"太田ジオリサーチ／岡三リビック",spec:"高耐食メッキ鋼管φ60.5mm、耐用80〜100年。打撃貫入で周囲を締め固め、排水と補強を兼ねる。L=3.6m以内が基本",use:"排水に加えて地山の変形も抑えたいとき"}],check:true},
+ {id:"hbor",f:"drain",name:"水抜きボーリング工",zone:["deep"],one:"ボーリングで削孔して有孔管を入れ、深い位置の地下水や滞留水を抜く",
+  fit:["湧水量が多く、打込み式パイプでは足りない","深い帯水層・路盤下の滞留水","硬い地盤や長い削孔が必要な箇所"],unfit:["浅い表層の水だけが問題（→打込み式排水パイプ）"],
+  steps:[["資料確認・試掘（埋設物の位置確認）",2],["ボーリングマシンの足場設置",2],["削孔（φ90mm級など）",2],["有孔管の挿入",1],["孔口保護・流末処理",1]],
+  basis:"道路土工 切土工・斜面安定工指針（水平排水孔：上向きに帯水層をねらって削孔）",
+  note:"排水で地山の細粒分が流れ出すことがあるので、孔口の保護と定期的な清掃を計画に入れます。",check:true},
+ {id:"ropenet",f:"rock",name:"ロープネット工",zone:["rock"],one:"大きな浮石をロープで包んで押さえる（発生源対策）",
+  fit:["亀裂の入った岩塊が斜面上にある","石を落とさないこと自体を目的にする"],unfit:["細かい落石が広範囲で続く面（→ポケット式）"],
+  steps:[["浮石調査・範囲の決定",2],["アンカー削孔・設置",3],["ロープ・ネット展張",2]],basis:"落石対策便覧（日本道路協会）",check:true},
+ {id:"pocket",f:"rock",name:"ポケット式落石防止網工",zone:["rock","toe"],one:"網で落石を受け、下部のポケットへ誘導",
+  fit:["小〜中規模の落石が広い範囲で発生","道路際に落ちる前に受け止めたい"],unfit:["単体の大きな岩塊（→ロープネット）"],
+  steps:[["支柱・アンカー設置",2],["網の展張",2],["ポケット部の調整",1]],basis:"落石対策便覧（日本道路協会）",check:true},
+ {id:"saku",f:"rock",name:"落石防護柵工",zone:["toe"],one:"斜面下部で落ちてきた石を止める（防護対策）",
+  fit:["落石エネルギーが小〜中程度","道路・宅地の手前に設置スペースがある"],unfit:["想定エネルギーが大きい（→高エネルギー吸収柵）"],
+  steps:[["基礎工",2],["支柱建込み",2],["ネット・ロープ張り",1]],basis:"落石対策便覧（日本道路協会）",check:true},
+ {id:"heavy",f:"rock",name:"高エネルギー吸収柵工",zone:["toe"],one:"緩衝装置で大きな落石エネルギーを吸収",
+  fit:["大きな落石が想定される","従来型の柵では止めきれない"],unfit:["設置スペース・基礎地盤が確保できない"],
+  steps:[["落石シミュレーション・製品選定",3],["基礎・アンカー",3],["支柱・ネット・緩衝装置の設置",2]],basis:"落石対策便覧（日本道路協会）、各製品の性能証明",check:true},
+ {id:"saam",f:"maint",name:"既設アンカーの面的調査（SAAMジャッキ）",zone:["deep"],one:"小型ジャッキで多数のアンカーの残存引張り力を測り、法面全体の健全度を面で把握する",
+  fit:["施工から年数の経ったアンカー法面（特に1988年の二重防食導入より前の旧タイプ）","足場・クレーン・通行規制をかけにくい箇所","どのアンカーを直すべきか、数値の根拠がほしい"],unfit:["頭部が破損・欠落していて試験機を取り付けられないアンカー（→頭部の詳細調査・更新を先に）"],
+  steps:[["既存資料調査・現地踏査",1],["頭部詳細調査（外観・露出、打音）",2],["リフトオフ試験（機材は人力で運搬）",2],["残存引張り力による健全度評価",1],["対策の提案（再緊張・更新・増し打ちなど）",1]],
+  basis:"グラウンドアンカー維持管理マニュアル（土木研究所・日本アンカー協会ほか、2020）、JGS4101-2012 付録「リフトオフ試験方法」、SAAMジャッキを用いた既設アンカーのり面の面的調査マニュアル（案）",
+  note:"従来の大型ジャッキは足場やクレーンが要り、法面全体の5〜10%程度しか試験できませんでした。SAAMジャッキは小型・軽量で、多くのアンカーを短期間で調べられます。アンカーの緊張力は斜面の変化を映すセンサーにもなります。",
+  prod:[{name:"SAAMジャッキ（SAAMJⅡ-600など）",maker:"リフトオフ試験専用ジャッキ",spec:"最大荷重600kN、ジャッキ本体約15kg。背負子で運べる",use:"アンカーの残存引張り力の測定に"}],check:true},
+ {id:"monorail",f:"temp",name:"モノレール（仮設運搬）",zone:[],one:"急斜面にレールを敷き、資材と人員を安全に運ぶ",
+  fit:["重機が上がれない急斜面・山間部の現場","吹付材や削孔機を斜面上部へ運ぶ必要がある"],unfit:["重機で直接アクセスできる現場"],
+  steps:[["ルート選定",1],["レール敷設",2],["運搬・運行管理",1],["撤去",1]],basis:"—",note:"法面工事の手間の多くは仮設にかかります。扇屋は運搬仮設まで自社で組めます。",check:true},
+ {id:"jet",f:"soil",name:"高圧噴射攪拌工",zone:["ground"],one:"地盤中で固化材を噴射・攪拌し、改良体を造る",
+  fit:["支持力不足・液状化対策","狭い場所・既設構造物の近く"],unfit:["改良範囲が浅く広い（→表層改良が合理的）"],
+  steps:[["試験施工",2],["削孔",2],["噴射攪拌",3],["排泥処理",3]],basis:"各工法協会の技術資料",check:true},
+ {id:"chem",f:"soil",name:"薬液注入工",zone:["ground"],one:"薬液を注入して止水・地盤の緩みを抑える",
+  fit:["湧水の止水、掘削時の補助","小規模・部分的な改良"],unfit:["大きな支持力の向上が目的"],
+  steps:[["注入計画・事前調査",2],["削孔",2],["注入・管理",2],["周辺の監視",1]],basis:"薬液注入工法の設計・施工指針",check:true}
+];
+const CASES=[["地盤改良工","case8",["jet","chem"]],["仮設工（モノレール）","case7",["monorail"]],["地すべり対策工（ロックボルト・グラウンドアンカー）","case6",["nail","anchor"]],["法面保護工（ニューレスプ）","case5",["newresp"]],["落石対策工（ロープネット）","case4",["ropenet"]],["法面保護工（種子吹付・植生マット）","case3",["seed","mat"]],["急傾斜地崩壊対策（各務原市 手力石山地区）","tejikara",["nail","fukitsuke-waku"],"表層が崖錐堆積物で、単管削孔では孔が埋まることが分かりました。市と協議して二重管削孔に切り替え、定着の品質を確保して工期内に完了しました。"],["治山の法面保護（岐阜県恵那市）","higashikuwabara",["kanni","drainpipe","monorail"],"湧水で浸食と表層すべりが進み、植生工だけでは止まらない斜面です。元請と共同で、簡易法枠＋打込み式の水抜き＋防食性のラス網を提案しました。重機が入らないため、資材はモノレールで運び人力で施工します。"],["太陽光発電設備横の法面崩落（各務原市）","mitsuikitamachi",["epm"],"崩落箇所を現地調査し、表層0.2m程度の崩壊を想定してEPM工法の設計計算（すべり荷重・金網・アンカーの検討）まで自社で行いました。法肩のフェンスは残し、手前のブロックだけを撤去する計画です。"],["法面整備（愛知県一宮市）","ichinomiya",["kanni","kiban"],"ガラ混じりの砂質土で、法尻に排水路がない1:0.8の法面です。全面モルタル吹付は雨水を速く流して法尻を洗掘するため採らず、簡易法枠＋枠内植生基材で保水させ、法尻は砕石トレンチで浸透処理する設計にしました。アンカーはガラで曲がらないようD16を選んでいます。"],["トンネル坑口の路面湧水（各務原市）","iwasaka",["hbor"],"路面から湧き出す水で冬の凍結が心配な箇所です。集水面積から湧水量を試算して既設の排水では足りないことを示し、埋設物を試掘で確かめたうえで、法面側から水抜きボーリングを扇状に打つ対策を提案しました。"],["既設アンカーの面的調査の現場見学会","saam",["saam"],"産学官の技術者向けに、SAAMジャッキによる既設アンカーのリフトオフ試験の見学会で現場を提供しました。"],
+ ["石積擁壁のはらみだし対策（岐阜市 岩戸観音周辺）","iwado",[],"参道沿いの空石積のはらみだしです。LiDARで3Dスキャンしてはらみ量の分布を解析し、原因を天端からの雨水浸透と推定しました。景観・樹木・人力施工の条件と風致地区などの法規制を整理し、予算に応じて段階施工できる4案を比較しています。"],
+ ["砂防堰堤脇の表層崩壊（郡上市）","gujo",["mat","monorail"],"深さ50cm未満の表層崩壊で、クレーンも吹付機も入らず残土も出せない現場です。原因を降雨時に地山へ水が溜まることと見て、縦排水材＋植生マット＋アンカーピンと横ロープの組み合わせを、モノレール搬入・人力施工で提案しました。"],
+ ["民家に近い法面の侵食・落石対策（関市）","seki",["epm"],"法尻から民家まで約1m、車両も吹付機も入らない1:0.6の風化土砂〜軟岩の法面です。人力とロープアクセスで施工できるEPM工法で、侵食と小規模な剥落を抑える計画を立てました。"],
+ ["簡易法枠による法面保護（土岐市）","toki",["kanni","drainpipe"],"1:1.2の粘性土で湧水が部分的にある法面です。浅層すべりの安定計算で必要抑止力を求めて枠を設計し、枠内は植生で開放、湧水箇所だけモルタル吹付と水抜きパイプにしました。"]];
+const hasCase=id=>CASES.some(c=>c[2].includes(id));
+
+/* ========= 断面図 ========= */
+function fig(zones){
+ const on=z=>zones.includes(z)?"z on":"z";
+ return `<svg class="section-fig" viewBox="0 0 560 300" role="img" aria-label="斜面の断面図。効く位置: ${zones.join('、')}">
+  <path d="M0 260 L150 260 L400 60 L560 60 L560 300 L0 300Z" fill="var(--soil-pale)"/>
+  <path class="${on('ground')}" d="M0 262 L150 262 L150 300 L0 300Z"/>
+  <path class="${on('deep')}" d="M178 258 Q300 205 392 76 L412 82 Q320 215 196 290Z"/>
+  <path class="${on('shallow')}" d="M154 262 L402 63 L416 80 L170 280Z"/>
+  <path class="${on('surf')}" d="M148 258 L398 58 L404 66 L154 266Z"/>
+  <path class="${on('rock')}" d="M430 44 a22 18 0 1 1 44 0 a22 18 0 1 1 -44 0Z"/>
+  <path class="${on('toe')}" d="M118 212 L142 212 L142 260 L118 260Z"/>
+  <path d="M150 260 L400 60 L560 60" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  <path d="M190 262 Q310 205 400 64" fill="none" stroke="var(--soil)" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <ellipse cx="452" cy="46" rx="16" ry="12" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+  <path d="M124 260 V218 M136 260 V218 M122 226 H138 M122 238 H138 M122 250 H138" stroke="var(--ink)" stroke-width="1.2"/>
+  <line x1="0" y1="260" x2="150" y2="260" stroke="var(--ink)" stroke-width="2"/>
+  <text class="lbl" x="178" y="170">表面・表層</text>
+  <text class="lbl" x="330" y="200">すべり面</text>
+  <text class="lbl" x="476" y="30">浮石</text>
+  <text class="lbl" x="40" y="250">道路際（柵）</text>
+  <text class="lbl" x="20" y="288">基礎地盤</text>
+ </svg>`;}
+
+/* ========= 描画 ========= */
+const $=s=>document.querySelector(s);
+const fam=id=>FAMILIES.find(f=>f.id===id);
+const byId=id=>K.find(k=>k.id===id);
+const eLabel=["","軽","中","重"];
+
+$("#family-summary").innerHTML=FAMILIES.map(f=>`<div class="panel"><b style="color:${f.color}">${f.name}</b><br><span style="color:var(--sub);font-size:15px">${f.desc}</span><br><span style="font-size:14px">${K.filter(k=>k.f===f.id).map(k=>k.name).join('、')}</span></div>`).join("");
+const TAGS=[["erosion","侵食"],["surface","表層崩壊"],["aging","老朽化した吹付"],["deep","地すべり・深いすべり"],["rockfall","落石"],["water","湧水・排水"],["wall","擁壁・石積"],["anchorm","アンカー点検"],["ground","地盤改良"],["access","重機が入らない現場"]];
+const CTAGS={case8:["ground"],case7:["access"],case6:["deep","surface"],case5:["aging"],case4:["rockfall"],case3:["erosion"],tejikara:["surface"],higashikuwabara:["erosion","surface","water","access"],mitsuikitamachi:["surface","erosion"],ichinomiya:["erosion","surface","water"],iwasaka:["water"],saam:["anchorm"],iwado:["wall","water","access"],gujo:["surface","water","access"],seki:["erosion","rockfall","access"],toki:["surface","water"]};
+const tagName=id=>TAGS.find(t=>t[0]===id)[1];
+function caseCard([t,slug,ks,story]){
+ return `<div class="panel" style="padding:12px"><div class="photo" style="margin:0 0 8px"><img src="img/cases/${slug}.jpg" alt="${t}" onerror="this.replaceWith('写真 img/cases/${slug}.jpg')"></div><b>${t}</b>${story?`<p style="font-size:14px;color:var(--sub);margin:6px 0 0">${story}</p>`:""}<div style="margin:6px 0 0">${(CTAGS[slug]||[]).map(g=>`<span class="tag" style="margin:0 6px 0 0">${tagName(g)}</span>`).join("")}</div><div class="alt">${ks.map(k=>`<button data-k="${k}">${byId(k).name}</button>`).join("")}</div></div>`;}
+const casesFor=tags=>CASES.filter(c=>(CTAGS[c[1]]||[]).some(g=>tags.includes(g)));
+let caseTag="all";
+function renderCases(){
+ $("#case-filter").innerHTML=[["all","すべて"],...TAGS].map(([v,l])=>`<button data-ct="${v}" aria-pressed="${caseTag===v}">${l}</button>`).join("");
+ const list=caseTag==="all"?CASES:casesFor([caseTag]);
+ const story=c=>c[3]?0:1;
+ $("#cases").innerHTML=[...list].sort((a,b)=>story(a)-story(b)).map(caseCard).join("");
+}
+$("#case-filter").addEventListener("click",e=>{const b=e.target.closest("[data-ct]");if(!b)return;caseTag=b.dataset.ct;renderCases();});
+renderCases();
+$("#cases-top").innerHTML=["iwado","tejikara","higashikuwabara"].map(sl=>caseCard(CASES.find(c=>c[1]===sl))).join("");
+function showTab(t){document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.t===t));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!=="t-"+t);$("#main").scrollTop=0;}
+$("#go-cases").onclick=()=>showTab("cases");
+$("#families").innerHTML=FAMILIES.map(f=>`<div class="family"><h3><i style="background:${f.color}"></i>${f.name}</h3><div class="grid">${K.filter(k=>k.f===f.id).map(k=>`<button class="kcard" data-k="${k.id}"><b>${k.name}</b><span>${k.one}</span></button>`).join("")}</div></div>`).join("");
+
+function openK(id){
+ const k=byId(id);
+ $("#sheet").innerHTML=`<button class="close" onclick="closeK()">閉じる</button>
+  <span style="color:${fam(k.f).color};font-size:14px">${fam(k.f).name}</span>
+  <h2>${k.name}${hasCase(k.id)?'<span class="tag" style="background:var(--green-pale);color:var(--green-deep)">扇屋の施工実績あり</span>':''}${k.check?'<span class="tag">技術確認待ち</span>':''}</h2>
+  <p>${k.one}</p>${k.note?`<div class="warn" style="margin:0 0 8px">${k.note}</div>`:''}
+  <div class="photo"><img src="img/koho/${k.id}.jpg" alt="${k.name}の施工写真" onerror="this.replaceWith('写真 img/koho/${k.id}.jpg')"></div>
+  ${k.zone.length?fig(k.zone):""}
+  <div class="two"><div><h4>向く条件</h4><ul>${k.fit.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+  <div><h4>向かない条件</h4><ul>${k.unfit.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+  <h4 style="margin:16px 0 4px;font-size:15px;color:var(--sub)">施工の流れと手間</h4>
+  <ol class="steps">${k.steps.map(([s,e])=>`<li>${s}<span class="effort e${e}">${eLabel[e]}</span></li>`).join("")}</ol>
+  ${k.prod?`<h4 style="margin:16px 0 4px;font-size:15px;color:var(--sub)">扇屋が使う資材</h4>${k.prod.map(x=>`<div class="panel" style="padding:10px 14px;margin-bottom:6px"><b>${x.name}</b>　<span style="color:var(--sub);font-size:14px">${x.maker}</span><br><span style="font-size:15px">${x.spec}</span>${x.use?`<br><span style="font-size:14px;color:var(--sub)">${x.use}</span>`:""}</div>`).join("")}`:""}
+  <p class="basis">主な基準類：${k.basis}</p>`;
+ $("#detail").hidden=false;$("#sheet").scrollTop=0;
+}
+function closeK(){$("#detail").hidden=true}
+document.addEventListener("click",e=>{
+ const c=e.target.closest("[data-k]");if(c)openK(c.dataset.k);
+ if(e.target.id==="detail")closeK();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeK()});
+
+/* タブ */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+/* ========= アドバイザー（正引き） ========= */
+const Q=[
+ {id:"issue",t:"何が困っていますか",o:[["erosion","表面が削れる・草が根付かない"],["aging","既設の吹付が老朽化している"],["anchorm","既設アンカーの状態が心配"],["surface","表層が崩れた／崩れそう"],["deep","深いすべり・地すべりの兆候"],["rockfall","落石・転石がある"],["ground","地盤が弱い・湧水を止めたい"]]},
+ {id:"slope",t:"勾配",o:[["gentle","1:1.0より緩い"],["mid","1:0.5〜1:1.0"],["steep","1:0.5より急"]],skip:["ground","aging","anchorm"]},
+ {id:"aage",t:"アンカーの施工年代",o:[["old","1988年より前"],["new","1988年以降"],["unk","不明"]],only:["anchorm"]},
+ {id:"ahead",t:"頭部の状態",o:[["bad","錆・浮き・キャップ破損・受圧板のひび"],["ok","目立つ異常なし"]],only:["anchorm"]},
+ {id:"degr",t:"既設吹付の状態",o:[["mid","ひび割れ・浮き（形は保っている）"],["severe","剥落・崩落が目立つ"]],only:["aging"]},
+ {id:"void",t:"吹付の背面に空洞",o:[["yes","あり"],["no","なし"],["unk","不明"]],only:["aging"]},
+ {id:"wz",t:"背面の風化領域の深さ",o:[["0","ほぼなし"],["25","25cm程度まで"],["50","25〜50cm"],["over","50cm以上"],["unk","不明"]],only:["aging"]},
+ {id:"geo",t:"地質",o:[["soil","土砂"],["weather","風化岩・軟岩"],["hard","硬岩（亀裂あり）"]],skip:["aging","anchorm"]},
+ {id:"water",t:"湧水",skip:["anchorm"],o:[["no","ほぼなし"],["yes","あり"]]},
+ {id:"green",t:"緑化・景観の要求",o:[["yes","あり"],["no","特になし"]],skip:["rockfall","ground","deep","aging","anchorm"]}
+];
+const A={};
+function renderQ(){
+ $("#questions").innerHTML=Q.filter(q=>!(q.skip&&q.skip.includes(A.issue))&&!(q.only&&!q.only.includes(A.issue))).map(q=>`<div class="q"><p>${q.t}</p><div class="opts">${q.o.map(([v,l])=>`<button data-q="${q.id}" data-v="${v}" aria-pressed="${A[q.id]===v}">${l}</button>`).join("")}</div></div>`).join("");
+}
+$("#questions").addEventListener("click",e=>{
+ const b=e.target.closest("[data-q]");if(!b)return;
+ A[b.dataset.q]=b.dataset.v;renderQ();judge();
+});
+function judge(){
+ if(!A.issue){return}
+ let main,alts=[],why=[],warn=[];
+ const s=A.slope,g=A.geo,w=A.water==="yes",gr=A.green!=="no";
+ switch(A.issue){
+  case"erosion":
+   if(g==="hard"||g==="weather"){main=gr?"kiban":"mortar";alts=[gr?"mortar":"kiban"];why.push("岩・風化岩の面は通常の種子散布では根付きにくいため、厚い基材か吹付で覆います。");}
+   else if(s==="steep"){main="kiban";alts=["kyakudo"];why.push("急勾配の土砂面は基材が流れにくい植生基材吹付が安定します。");}
+   else if(s==="mid"){main="kyakudo";alts=["kiban","seed","epm"];why.push("中勾配のやせた土砂面は、客土で生育基盤を補うのが合理的です。");}
+   else{main="seed";alts=["kyakudo"];why.push("緩い土砂法面は種子散布で早く安く緑化できます。");}
+   break;
+  case"surface":
+   if(s==="gentle"&&g==="soil"){main="kanni";alts=["fukitsuke-waku"];why.push("緩い土砂法面の小規模なずれは、簡易法枠で抑えられる範囲です。");}
+   else{main="fukitsuke-waku";alts=["nail"];why.push("表層崩壊のおそれがある面は、現場吹付法枠で表層を押さえます。");
+    if(s==="steep"||g==="weather"){alts=["nail"];why.push("急勾配または風化岩のため、鉄筋挿入工との併用が第一候補になります。");}}
+   if(s!=="steep"&&!alts.includes("epm"))alts.push("epm");
+   if(gr)why.push("枠内は植生基材吹付で緑化できます。");
+   break;
+  case"aging":
+   if(A.degr==="severe"){main="mortar";alts=["fukitsuke-waku","newresp"];why.push("吹付自体の劣化が顕著なため、はつり取って吹き直す更新、または吹付法枠・受圧板工が候補です。");break;}
+   main="newresp";alts=["fsc","anchor"];why.push("既設吹付が形を保っているうちは、はつり取らずに補修・補強するニューレスプ工法が第一候補です。仮設・産業廃棄物・工期を抑えられ、道路際でも施工できます。");
+   if(A.void==="yes")why.push("背面に空洞があるため、背面空洞注入工を組み込みます。");
+   ({"0":()=>why.push("風化領域がほぼないため、スライド防止鉄筋のパターン①で足ります。"),
+     "25":()=>why.push("風化領域25cm程度までなので、補強鉄筋L=0.6mのパターン②です。"),
+     "50":()=>why.push("風化領域25〜50cmなので、補強鉄筋L=1.0mの標準パターン③です。"),
+     "over":()=>{main="fsc";alts=["anchor","newresp"];why[0]=("風化領域が0.5m以上あるため、安定解析で必要抑止力を求めます。300kN/m以下なら地山補強土＋吹付受圧板（FSCパネル）のパターン④が候補です。");warn.push("必要抑止力が300kN/mを超える場合はグラウンドアンカー工になります。");},
+     "unk":()=>warn.push("補強鉄筋の長さは背面の風化領域の深さで決まります。調査で深さを確認してください。")}[A.wz]||(()=>{}))();
+   if(A.void==="unk")warn.push("背面空洞の有無は打音・調査で確認します。空洞があれば注入工を追加します。");
+   break;
+  case"anchorm":
+   main="saam";alts=["anchor"];why.push("法面全体のアンカーの残存引張り力を面的に測れば、直すべきアンカーを数値で絞り込めます。");
+   if(A.aage==="old")why.push("1988年より前のアンカーは二重防食が導入される前の旧タイプで、引張材の破断や頭部の落下の事例が多く、調査の優先度が高いものです。");
+   if(A.aage==="unk")warn.push("台帳や竣工図で施工年代を確認できると、優先順位が付けやすくなります。");
+   if(A.ahead==="bad")warn.push("頭部に異常があるため、頭部詳細調査を先に行い、試験できるかを確かめます。");
+   break;
+  case"deep":
+   main="anchor";alts=["nail","fukitsuke-waku"];why.push("すべり面が深い場合、すべり面より下の地盤に定着するアンカーで締め付けます。");
+   warn.push("すべり面の位置を決める調査（ボーリング・動態観測）が前提です。地すべりの場合は水抜きなどの抑制工とセットで検討します。");
+   break;
+  case"rockfall":
+   if(g==="hard"){main="ropenet";alts=["heavy","saku"];why.push("亀裂のある硬岩の浮石は、発生源で押さえるロープネットが第一候補です。");}
+   else{main="pocket";alts=["saku","ropenet"];why.push("風化による小〜中の落石が広範囲で続く面は、ポケット式落石防止網で受けて誘導します。");}
+   warn.push("道路際に余地があれば、防護柵（想定エネルギーが大きければ高エネルギー吸収柵）を併用する選択肢もあります。");
+   break;
+  case"ground":
+   if(w){main="chem";alts=["jet"];why.push("止水が主目的なら薬液注入で湧水と緩みを抑えます。");}
+   else{main="jet";alts=["chem"];why.push("支持力の向上には、改良体を造る高圧噴射攪拌が向きます。");}
+   break;
+ }
+ if(byId(main).steps.some(x=>/仮設/.test(x[0])&&x[1]===3))warn.push("仮設の比重が大きい工法です。重機が上がれない斜面では、扇屋が自社でモノレールを組んで運搬します。");
+ if(w&&A.issue!=="ground"){if(!alts.includes("drainpipe"))alts.push("drainpipe");warn.push("湧水ありのため、水抜き（打込み式排水パイプなど）の併用が前提になります。");}
+ const k=byId(main);
+ const heavy=k.steps.filter(x=>x[1]===3).map(x=>x[0]);
+ $("#result").innerHTML=`<div class="main"><span style="color:var(--sub);font-size:14px">第一候補</span><br><b>${k.name}</b>${k.check?'<span class="tag">技術確認待ち</span>':''}</div>
+  ${fig(k.zone)}
+  <p style="margin-top:8px">${why.join("")}</p>
+  <p><span style="color:var(--sub)">手間がかかるところ：</span>${heavy.length?heavy.join("、"):"大きな山はなく、比較的軽い工程で構成されます"}</p>
+  <div><span style="color:var(--sub);font-size:14px">あわせて検討</span><div class="alt">${alts.map(a=>`<button data-k="${a}">${byId(a).name}</button>`).join("")}<button data-k="${main}">${k.name}の詳細</button></div></div>
+  ${warn.map(x=>`<div class="warn">${x}</div>`).join("")}
+  ${(()=>{const tg=[A.issue];if(w)tg.push("water");const m=casesFor(tg).filter(c=>c[3]).slice(0,3);return m.length?`<h4 style="margin:18px 0 6px;font-size:15px;color:var(--sub)">同じような現場の実績</h4><div class="grid">${m.map(caseCard).join("")}</div>`:"";})()}`;
+}
+renderQ();
+
+/* ========= アドバイザー（逆引き） ========= */
+$("#rev-list").innerHTML=K.map(k=>`<button class="kcard" data-k="${k.id}"><b>${k.name}</b><span>向く：${k.fit[0]}</span></button>`).join("");
+document.querySelectorAll(".mode button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(".mode button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+ $("#adv-fwd").hidden=b.dataset.mode!=="fwd";$("#adv-rev").hidden=b.dataset.mode!=="rev";
+});
+
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+</script>
+</body>
+</html>

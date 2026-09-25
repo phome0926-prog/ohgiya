@@ -82,6 +82,39 @@ p{margin:0 0 12px}
 .e3{background:#f8dcd6;color:#9c3a26}
 .basis{font-size:14px;color:var(--sub);border-top:1px solid var(--line);margin-top:14px;padding-top:10px}
 
+/* ビジュアル */
+.media{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:12px;background:var(--green-pale);display:flex;align-items:center;justify-content:center}
+.media img{width:100%;height:100%;object-fit:cover;display:block}
+.media .section-fig{width:100%;height:auto;margin:0;padding:6%}
+.media .src{position:absolute;right:6px;bottom:6px;font-size:11px;background:rgba(0,0,0,.55);color:#fff;border-radius:4px;padding:1px 6px}
+.pc{padding:0!important;overflow:hidden;display:flex;flex-direction:column}
+.pc .media{border-radius:0;aspect-ratio:3/2}
+.pc-body{padding:12px 14px 14px}
+.pc-body b{font-size:17px;line-height:1.45}
+.pc-body p{font-size:14px;color:var(--sub);margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hero{position:relative;border-radius:18px;overflow:hidden;min-height:360px;display:flex;align-items:flex-end;background:linear-gradient(135deg,var(--green-deep),var(--green));margin-bottom:22px}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 25%,rgba(10,30,12,.82))}
+.hero-text{position:relative;z-index:1;padding:26px 26px 24px;color:#fff}
+.hero-text .mission{color:#fff;margin:0 0 8px;font-size:32px;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.hero-text p{margin:0;max-width:34em;opacity:.95}
+.team{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;align-items:center;margin:0 0 8px}
+.team img{width:100%;border-radius:16px;display:block}
+.team b{font-size:22px;line-height:1.45;display:block;margin-bottom:8px;color:var(--green-deep)}
+.team p{margin:0;color:var(--sub)}
+@media (max-width:640px){.team{grid-template-columns:1fr}}
+.mascot{float:right;width:130px;margin:-10px -6px 0 10px}
+.tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.tile{position:relative;border:0;padding:0;border-radius:14px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;background:var(--green-pale);text-align:left}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.72))}
+.tile span{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;color:#fff;font-size:15px;line-height:1.4}
+.tile span b{display:block;font-size:19px}
+.gallery .media img{object-fit:contain;background:#fff}
+.gallery{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:12px 0}
+.adv-vis{display:grid;gap:12px;grid-template-columns:1fr 1fr;align-items:center;margin-top:10px}
+@media (max-width:640px){.adv-vis{grid-template-columns:1fr}.hero-text .mission{font-size:25px}}
+
 /* 断面図 */
 .section-fig{width:100%;max-width:560px;display:block;margin:6px auto}
 .section-fig .z{fill:transparent;stroke:none;transition:fill .25s}
@@ -115,16 +148,39 @@ p{margin:0 0 12px}
 <header>
   <img src="icon-192.png" alt="">
   <h1>扇屋 法面提案</h1>
-  <span class="ver">v0.7</span>
+  <span class="ver">v0.9</span>
 </header>
 
 <main id="main"><div class="wrap">
 
 <!-- 会社 -->
 <section id="t-company">
-  <p class="mission">土砂災害・水害から、一人でも多くの人を救う会社でありたい。</p>
-  <p class="lead">岐阜・愛知の扇状地に根ざし、危険な法面を守り、崩れた斜面を元に戻す。法面保護から落石・地すべり対策、地盤改良まで、自社施工で一貫して対応します。</p>
-  <div class="panel" style="margin-top:18px">
+  <div class="hero">
+    <img src="img/hp/hero.jpg" alt="急斜面での扇屋の施工" onerror="this.remove()">
+    <div class="hero-text">
+      <p class="mission">土砂災害・水害から、一人でも多くの人を救う会社でありたい。</p>
+      <p>岐阜・愛知の扇状地に根ざし、危険な法面を守り、崩れた斜面を元に戻す。調査・設計から施工まで、自社で一貫して対応します。</p>
+    </div>
+  </div>
+  <div class="team">
+    <img src="img/hp/team.jpg" alt="扇屋の現場の仲間" loading="lazy">
+    <div><b>現場に立つのは、この顔ぶれです。</b><p>ロープで急斜面に取り付き、重機が入らない山の中でもモノレールを組んで施工します。</p></div>
+  </div>
+  <h3>できること</h3>
+  <div id="family-summary" class="tiles"></div>
+  <h3>代表的な事例</h3>
+  <div class="grid" id="cases-top"></div>
+  <p style="margin-top:12px"><button class="kcard" style="width:auto" id="go-cases">すべての実績を見る</button></p>
+  <h3>進め方</h3>
+  <p class="lead" style="margin-bottom:10px">工事だけでなく、その手前から引き受けます。</p>
+  <div class="grid">
+    <div class="panel"><b>1　現地調査</b><br>崩れ方・湧水・地質を見て、写真と横断で整理します。</div>
+    <div class="panel"><b>2　工法の比較と設計計算</b><br>複数案を比べ、選んだ工法は基準類に沿って計算します。</div>
+    <div class="panel"><b>3　施工計画</b><br>重機が入らない現場でも、モノレールと人力で段取りを組みます。</div>
+    <div class="panel"><b>4　施工</b><br>法面・落石・地すべり・地盤改良まで自社施工です。</div>
+  </div>
+  <h3>会社概要</h3>
+  <div class="panel">
     <dl class="facts">
       <dt>社名</dt><dd>株式会社扇屋</dd>
       <dt>代表者</dt><dd>代表取締役 河野 春男</dd>
@@ -135,19 +191,7 @@ p{margin:0 0 12px}
       <dt>電話</dt><dd>代表 058-383-6210／フリーコール 0120-998-005</dd>
     </dl>
   </div>
-  <h3>進め方</h3>
-  <p class="lead" style="margin-bottom:10px">工事だけでなく、その手前から引き受けます。</p>
-  <div class="grid">
-    <div class="panel"><b>1　現地調査</b><br>崩れ方・湧水・地質を見て、写真と横断で整理します。</div>
-    <div class="panel"><b>2　工法の比較と設計計算</b><br>複数案を比べ、選んだ工法は基準類に沿って計算します。</div>
-    <div class="panel"><b>3　施工計画</b><br>重機が入らない現場でも、モノレールと人力で段取りを組みます。</div>
-    <div class="panel"><b>4　施工</b><br>法面・落石・地すべり・地盤改良まで自社施工です。</div>
-  </div>
-  <h3>自社で施工できる範囲</h3>
-  <div id="family-summary" class="grid"></div>
-  <h3>代表的な事例</h3>
-  <div class="grid" id="cases-top"></div>
-  <p style="margin-top:12px"><button class="kcard" style="width:auto" id="go-cases">すべての実績を見る</button></p>
+
 </section>
 
 <!-- 工法 -->
@@ -210,7 +254,8 @@ p{margin:0 0 12px}
     <div class="panel"><b>白い析出物</b><br>ひびや目地から白いものが出ている（背面の水とひびのサイン）</div>
     <div class="panel"><b>天端まわり</b><br>擁壁の上の排水溝の土砂詰まり・ずれ・ひび、地面の小さな陥没</div>
   </div>
-  <div class="panel" style="margin-top:14px">
+  <div class="panel" style="margin-top:14px;overflow:hidden">
+    <img class="mascot" src="img/hp/mascot.png" alt="">
     <b>個人のお客様へ</b>
     <p style="margin:4px 0 0">ブロック塀のひび割れなど、小さな不安はLINEで気軽にご相談いただけます。相談・お見積もりは無料です（フリーコール 0120-998-005）。</p>
     <a class="line-btn" href="https://lin.ee/yNXI4Yp" target="_blank" rel="noopener">LINEで相談する</a>
@@ -333,11 +378,25 @@ const K=[
   fit:["湧水の止水、掘削時の補助","小規模・部分的な改良"],unfit:["大きな支持力の向上が目的"],
   steps:[["注入計画・事前調査",2],["削孔",2],["注入・管理",2],["周辺の監視",1]],basis:"薬液注入工法の設計・施工指針",check:true}
 ];
-const CASES=[["地盤改良工","case8",["jet","chem"]],["仮設工（モノレール）","case7",["monorail"]],["地すべり対策工（ロックボルト・グラウンドアンカー）","case6",["nail","anchor"]],["法面保護工（ニューレスプ）","case5",["newresp"]],["落石対策工（ロープネット）","case4",["ropenet"]],["法面保護工（種子吹付・植生マット）","case3",["seed","mat"]],["急傾斜地崩壊対策（各務原市 手力石山地区）","tejikara",["nail","fukitsuke-waku"],"表層が崖錐堆積物で、単管削孔では孔が埋まることが分かりました。市と協議して二重管削孔に切り替え、定着の品質を確保して工期内に完了しました。"],["治山の法面保護（岐阜県恵那市）","higashikuwabara",["kanni","drainpipe","monorail"],"湧水で浸食と表層すべりが進み、植生工だけでは止まらない斜面です。元請と共同で、簡易法枠＋打込み式の水抜き＋防食性のラス網を提案しました。重機が入らないため、資材はモノレールで運び人力で施工します。"],["太陽光発電設備横の法面崩落（各務原市）","mitsuikitamachi",["epm"],"崩落箇所を現地調査し、表層0.2m程度の崩壊を想定してEPM工法の設計計算（すべり荷重・金網・アンカーの検討）まで自社で行いました。法肩のフェンスは残し、手前のブロックだけを撤去する計画です。"],["法面整備（愛知県一宮市）","ichinomiya",["kanni","kiban"],"ガラ混じりの砂質土で、法尻に排水路がない1:0.8の法面です。全面モルタル吹付は雨水を速く流して法尻を洗掘するため採らず、簡易法枠＋枠内植生基材で保水させ、法尻は砕石トレンチで浸透処理する設計にしました。アンカーはガラで曲がらないようD16を選んでいます。"],["トンネル坑口の路面湧水（各務原市）","iwasaka",["hbor"],"路面から湧き出す水で冬の凍結が心配な箇所です。集水面積から湧水量を試算して既設の排水では足りないことを示し、埋設物を試掘で確かめたうえで、法面側から水抜きボーリングを扇状に打つ対策を提案しました。"],["既設アンカーの面的調査の現場見学会","saam",["saam"],"産学官の技術者向けに、SAAMジャッキによる既設アンカーのリフトオフ試験の見学会で現場を提供しました。"],
+const CASES=[["法面保護工（モルタル吹付）","case1",["mortar"]],["法面保護工（簡易法枠吹付）","case2",["kanni","fukitsuke-waku"]],["地盤改良工","case8",["jet","chem"]],["仮設工（モノレール）","case7",["monorail"]],["地すべり対策工（ロックボルト・グラウンドアンカー）","case6",["nail","anchor"]],["法面保護工（ニューレスプ）","case5",["newresp"]],["落石対策工（ロープネット）","case4",["ropenet"]],["法面保護工（種子吹付・植生マット）","case3",["seed","mat"]],["急傾斜地崩壊対策（各務原市 手力石山地区）","tejikara",["nail","fukitsuke-waku"],"表層が崖錐堆積物で、単管削孔では孔が埋まることが分かりました。市と協議して二重管削孔に切り替え、定着の品質を確保して工期内に完了しました。"],["治山の法面保護（岐阜県恵那市）","higashikuwabara",["kanni","drainpipe","monorail"],"湧水で浸食と表層すべりが進み、植生工だけでは止まらない斜面です。元請と共同で、簡易法枠＋打込み式の水抜き＋防食性のラス網を提案しました。重機が入らないため、資材はモノレールで運び人力で施工します。"],["太陽光発電設備横の法面崩落（各務原市）","mitsuikitamachi",["epm"],"崩落箇所を現地調査し、表層0.2m程度の崩壊を想定してEPM工法の設計計算（すべり荷重・金網・アンカーの検討）まで自社で行いました。法肩のフェンスは残し、手前のブロックだけを撤去する計画です。"],["法面整備（愛知県一宮市）","ichinomiya",["kanni","kiban"],"ガラ混じりの砂質土で、法尻に排水路がない1:0.8の法面です。全面モルタル吹付は雨水を速く流して法尻を洗掘するため採らず、簡易法枠＋枠内植生基材で保水させ、法尻は砕石トレンチで浸透処理する設計にしました。アンカーはガラで曲がらないようD16を選んでいます。"],["トンネル坑口の路面湧水（各務原市）","iwasaka",["hbor"],"路面から湧き出す水で冬の凍結が心配な箇所です。集水面積から湧水量を試算して既設の排水では足りないことを示し、埋設物を試掘で確かめたうえで、法面側から水抜きボーリングを扇状に打つ対策を提案しました。"],["既設アンカーの面的調査の現場見学会","saam",["saam"],"産学官の技術者向けに、SAAMジャッキによる既設アンカーのリフトオフ試験の見学会で現場を提供しました。"],
  ["石積擁壁のはらみだし対策（岐阜市 岩戸観音周辺）","iwado",[],"参道沿いの空石積のはらみだしです。LiDARで3Dスキャンしてはらみ量の分布を解析し、原因を天端からの雨水浸透と推定しました。景観・樹木・人力施工の条件と風致地区などの法規制を整理し、予算に応じて段階施工できる4案を比較しています。"],
  ["砂防堰堤脇の表層崩壊（郡上市）","gujo",["mat","monorail"],"深さ50cm未満の表層崩壊で、クレーンも吹付機も入らず残土も出せない現場です。原因を降雨時に地山へ水が溜まることと見て、縦排水材＋植生マット＋アンカーピンと横ロープの組み合わせを、モノレール搬入・人力施工で提案しました。"],
  ["民家に近い法面の侵食・落石対策（関市）","seki",["epm"],"法尻から民家まで約1m、車両も吹付機も入らない1:0.6の風化土砂〜軟岩の法面です。人力とロープアクセスで施工できるEPM工法で、侵食と小規模な剥落を抑える計画を立てました。"],
  ["簡易法枠による法面保護（土岐市）","toki",["kanni","drainpipe"],"1:1.2の粘性土で湧水が部分的にある法面です。浅層すべりの安定計算で必要抑止力を求めて枠を設計し、枠内は植生で開放、湧水箇所だけモルタル吹付と水抜きパイプにしました。"]];
+const HP="https://ohgiya.link/wp-content/uploads/";
+const KIMG={mortar:HP+"2022/09/445d72ca271d19397d23a82fe0f4688d-1024x768.jpg",kanni:HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg","fukitsuke-waku":HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg",seed:HP+"2022/09/c97a61e38d62cd0c26fa4c24f383a3b8-1024x768.jpg",mat:HP+"2022/09/4dcc2ae6ba5fbfb26450f8d428c4f965-1024x768.jpg",ropenet:HP+"2022/09/c9f145272ffe94c60f6a85108947b8cf-1024x768.jpg",newresp:HP+"2022/09/d191ebeb6768da3524590b13a429d369-1024x768.jpg",nail:HP+"2022/09/17f9df940433d296a0c21a827889e620.jpg",anchor:HP+"2022/09/9ccf23820ac9641f76d57c6f80558028.jpg",monorail:HP+"2022/09/846f92ce1e60a322f0f5e643a9cb55cc.jpg",jet:HP+"2026/01/20251225_105511.jpg",epm:"img/koho/epm.jpg",drainpipe:"img/koho/drainpipe.jpg",saam:"img/koho/saam.jpg"};
+Object.assign(KIMG,{mortar:"img/hp/mortar-1.jpg","fukitsuke-waku":"img/hp/fukitsuke-waku.jpg",kanni:"img/hp/kanni.jpg",seed:"img/hp/seed.jpg",kiban:"img/hp/kiban.jpg",nail:"img/hp/nail.jpg",anchor:"img/hp/anchor.jpg",monorail:"img/hp/monorail.jpg"});
+const KSRC={epm:"写真：トーエス資料",drainpipe:"写真：ダイカ資料"};
+const loc=(sl,n)=>Array.from({length:n},(_,i)=>`img/cases/${sl}-${i+1}.jpg`);
+const CIMG={case1:[KIMG.mortar],case2:[KIMG.kanni],case3:[KIMG.seed,KIMG.mat],case4:[KIMG.ropenet],case5:[KIMG.newresp],case6:[KIMG.nail,KIMG.anchor,HP+"2022/09/e519e59f332182ddf4c0bae5edbcdc4b.jpg",HP+"2022/09/798031ba93f8dc5709edc102c93768cf.jpg"],case7:[KIMG.monorail],case8:[KIMG.jet],
+ tejikara:loc("tejikara",2),higashikuwabara:loc("higashikuwabara",2),mitsuikitamachi:loc("mitsuikitamachi",2),ichinomiya:loc("ichinomiya",2),iwasaka:loc("iwasaka",2),saam:loc("saam",2),iwado:loc("iwado",2),gujo:loc("gujo",2)};
+const hp=n=>`img/hp/${n}.jpg`;
+Object.assign(CIMG,{case1:[hp("mortar-1"),hp("mortar-2"),hp("mortar-3"),hp("rope"),HP+"2022/09/445d72ca271d19397d23a82fe0f4688d-1024x768.jpg"],case2:[hp("kanni"),hp("fukitsuke-waku"),hp("kiban"),hp("waku-drone"),HP+"2022/09/05c1f515368cf6fd2126ba455954bcd3-1024x768.jpg"],case3:[hp("seed"),HP+"2022/09/c97a61e38d62cd0c26fa4c24f383a3b8-1024x768.jpg",HP+"2022/09/4dcc2ae6ba5fbfb26450f8d428c4f965-1024x768.jpg"],case6:[hp("nail"),hp("anchor"),hp("drill-1"),hp("drill-2"),...CIMG.case6],case7:[hp("monorail"),KIMG.monorail===hp("monorail")?HP+"2022/09/846f92ce1e60a322f0f5e643a9cb55cc.jpg":KIMG.monorail]});
+const FIMG={veg:"seed",spray:"mortar",frame:"kanni",drain:"drainpipe",rock:"ropenet",soil:"jet",maint:"saam",temp:"monorail"};
+function media(src,zones,alt,note){
+ if(!src)return `<div class="media">${fig(zones||[])}</div>`;
+ return `<div class="media"><img loading="lazy" src="${src}" alt="${alt||""}" data-z="${(zones||[]).join(",")}" onerror="imgFail(this)">${note?`<span class="src">${note}</span>`:""}</div>`;}
+window.imgFail=el=>{const z=el.dataset.z;el.parentNode.innerHTML=fig(z?z.split(","):[]);};
 const hasCase=id=>CASES.some(c=>c[2].includes(id));
 
 /* ========= 断面図 ========= */
@@ -369,12 +428,21 @@ const fam=id=>FAMILIES.find(f=>f.id===id);
 const byId=id=>K.find(k=>k.id===id);
 const eLabel=["","軽","中","重"];
 
-$("#family-summary").innerHTML=FAMILIES.map(f=>`<div class="panel"><b style="color:${f.color}">${f.name}</b><br><span style="color:var(--sub);font-size:15px">${f.desc}</span><br><span style="font-size:14px">${K.filter(k=>k.f===f.id).map(k=>k.name).join('、')}</span></div>`).join("");
+$("#family-summary").innerHTML=FAMILIES.map(f=>`<button class="tile" data-fam="${f.id}"><img loading="lazy" src="${KIMG[FIMG[f.id]]}" alt="" onerror="this.remove()"><span><b>${f.name}</b>${f.desc}</span></button>`).join("");
 const TAGS=[["erosion","侵食"],["surface","表層崩壊"],["aging","老朽化した吹付"],["deep","地すべり・深いすべり"],["rockfall","落石"],["water","湧水・排水"],["wall","擁壁・石積"],["anchorm","アンカー点検"],["ground","地盤改良"],["access","重機が入らない現場"]];
-const CTAGS={case8:["ground"],case7:["access"],case6:["deep","surface"],case5:["aging"],case4:["rockfall"],case3:["erosion"],tejikara:["surface"],higashikuwabara:["erosion","surface","water","access"],mitsuikitamachi:["surface","erosion"],ichinomiya:["erosion","surface","water"],iwasaka:["water"],saam:["anchorm"],iwado:["wall","water","access"],gujo:["surface","water","access"],seki:["erosion","rockfall","access"],toki:["surface","water"]};
+const CTAGS={case1:["erosion"],case2:["surface","erosion"],case8:["ground"],case7:["access"],case6:["deep","surface"],case5:["aging"],case4:["rockfall"],case3:["erosion"],tejikara:["surface"],higashikuwabara:["erosion","surface","water","access"],mitsuikitamachi:["surface","erosion"],ichinomiya:["erosion","surface","water"],iwasaka:["water"],saam:["anchorm"],iwado:["wall","water","access"],gujo:["surface","water","access"],seki:["erosion","rockfall","access"],toki:["surface","water"]};
 const tagName=id=>TAGS.find(t=>t[0]===id)[1];
 function caseCard([t,slug,ks,story]){
- return `<div class="panel" style="padding:12px"><div class="photo" style="margin:0 0 8px"><img src="img/cases/${slug}.jpg" alt="${t}" onerror="this.replaceWith('写真 img/cases/${slug}.jpg')"></div><b>${t}</b>${story?`<p style="font-size:14px;color:var(--sub);margin:6px 0 0">${story}</p>`:""}<div style="margin:6px 0 0">${(CTAGS[slug]||[]).map(g=>`<span class="tag" style="margin:0 6px 0 0">${tagName(g)}</span>`).join("")}</div><div class="alt">${ks.map(k=>`<button data-k="${k}">${byId(k).name}</button>`).join("")}</div></div>`;}
+ const im=(CIMG[slug]||[])[0];
+ return `<button class="kcard pc" data-c="${slug}">${media(im,ks.length?byId(ks[0]).zone:[],t)}<div class="pc-body"><b>${t}</b>${story?`<p>${story}</p>`:""}<div style="margin:8px 0 0">${(CTAGS[slug]||[]).map(g=>`<span class="tag" style="margin:0 6px 0 0">${tagName(g)}</span>`).join("")}</div></div></button>`;}
+function openCase(slug){
+ const c=CASES.find(x=>x[1]===slug);const [t,,ks,story]=c;const ims=CIMG[slug]||[];
+ $("#sheet").innerHTML=`<button class="close" onclick="closeK()">閉じる</button><h2>${t}</h2>
+  <div style="margin:4px 0 8px">${(CTAGS[slug]||[]).map(g=>`<span class="tag" style="margin:0 6px 0 0">${tagName(g)}</span>`).join("")}</div>
+  ${ims.length?`<div class="gallery">${ims.map(u=>media(u,[],t)).join("")}</div>`:(ks.length?media(null,byId(ks[0]).zone):"")}
+  ${story?`<p style="font-size:17px">${story}</p>`:""}
+  ${ks.length?`<h4 style="margin:16px 0 4px;font-size:15px;color:var(--sub)">使った工法</h4><div class="alt">${ks.map(k=>`<button data-k="${k}">${byId(k).name}</button>`).join("")}</div>`:""}`;
+ $("#detail").hidden=false;$("#sheet").scrollTop=0;}
 const casesFor=tags=>CASES.filter(c=>(CTAGS[c[1]]||[]).some(g=>tags.includes(g)));
 let caseTag="all";
 function renderCases(){
@@ -388,7 +456,7 @@ renderCases();
 $("#cases-top").innerHTML=["iwado","tejikara","higashikuwabara"].map(sl=>caseCard(CASES.find(c=>c[1]===sl))).join("");
 function showTab(t){document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.t===t));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!=="t-"+t);$("#main").scrollTop=0;}
 $("#go-cases").onclick=()=>showTab("cases");
-$("#families").innerHTML=FAMILIES.map(f=>`<div class="family"><h3><i style="background:${f.color}"></i>${f.name}</h3><div class="grid">${K.filter(k=>k.f===f.id).map(k=>`<button class="kcard" data-k="${k.id}"><b>${k.name}</b><span>${k.one}</span></button>`).join("")}</div></div>`).join("");
+$("#families").innerHTML=FAMILIES.map(f=>`<div class="family" id="fam-${f.id}"><h3><i style="background:${f.color}"></i>${f.name}</h3><div class="grid">${K.filter(k=>k.f===f.id).map(k=>`<button class="kcard pc" data-k="${k.id}">${media(KIMG[k.id],k.zone,k.name,KSRC[k.id])}<div class="pc-body"><b>${k.name}</b><p>${k.one}</p></div></button>`).join("")}</div></div>`).join("");
 
 function openK(id){
  const k=byId(id);
@@ -396,8 +464,8 @@ function openK(id){
   <span style="color:${fam(k.f).color};font-size:14px">${fam(k.f).name}</span>
   <h2>${k.name}${hasCase(k.id)?'<span class="tag" style="background:var(--green-pale);color:var(--green-deep)">扇屋の施工実績あり</span>':''}${k.check?'<span class="tag">技術確認待ち</span>':''}</h2>
   <p>${k.one}</p>${k.note?`<div class="warn" style="margin:0 0 8px">${k.note}</div>`:''}
-  <div class="photo"><img src="img/koho/${k.id}.jpg" alt="${k.name}の施工写真" onerror="this.replaceWith('写真 img/koho/${k.id}.jpg')"></div>
-  ${k.zone.length?fig(k.zone):""}
+  ${KIMG[k.id]?`<div class="adv-vis">${media(KIMG[k.id],k.zone,k.name,KSRC[k.id])}${k.zone.length?`<div>${fig(k.zone)}</div>`:""}</div>`:(k.zone.length?fig(k.zone):"")}
+  ${CASES.filter(c=>c[2].includes(k.id)&&c[3]).length?`<h4 style="margin:16px 0 6px;font-size:15px;color:var(--sub)">この工法の事例</h4><div class="grid">${CASES.filter(c=>c[2].includes(k.id)&&c[3]).slice(0,3).map(caseCard).join("")}</div>`:""}
   <div class="two"><div><h4>向く条件</h4><ul>${k.fit.map(x=>`<li>${x}</li>`).join("")}</ul></div>
   <div><h4>向かない条件</h4><ul>${k.unfit.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
   <h4 style="margin:16px 0 4px;font-size:15px;color:var(--sub)">施工の流れと手間</h4>
@@ -408,6 +476,8 @@ function openK(id){
 }
 function closeK(){$("#detail").hidden=true}
 document.addEventListener("click",e=>{
+ const cc=e.target.closest("[data-c]");if(cc){openCase(cc.dataset.c);return;}
+ const tl=e.target.closest("[data-fam]");if(tl){showTab("methods");setTimeout(()=>document.getElementById("fam-"+tl.dataset.fam).scrollIntoView({behavior:"smooth"}),50);return;}
  const c=e.target.closest("[data-k]");if(c)openK(c.dataset.k);
  if(e.target.id==="detail")closeK();
 });
@@ -491,7 +561,7 @@ function judge(){
  const k=byId(main);
  const heavy=k.steps.filter(x=>x[1]===3).map(x=>x[0]);
  $("#result").innerHTML=`<div class="main"><span style="color:var(--sub);font-size:14px">第一候補</span><br><b>${k.name}</b>${k.check?'<span class="tag">技術確認待ち</span>':''}</div>
-  ${fig(k.zone)}
+  ${KIMG[k.id]?`<div class="adv-vis">${media(KIMG[k.id],k.zone,k.name,KSRC[k.id])}<div>${fig(k.zone)}</div></div>`:fig(k.zone)}
   <p style="margin-top:8px">${why.join("")}</p>
   <p><span style="color:var(--sub)">手間がかかるところ：</span>${heavy.length?heavy.join("、"):"大きな山はなく、比較的軽い工程で構成されます"}</p>
   <div><span style="color:var(--sub);font-size:14px">あわせて検討</span><div class="alt">${alts.map(a=>`<button data-k="${a}">${byId(a).name}</button>`).join("")}<button data-k="${main}">${k.name}の詳細</button></div></div>

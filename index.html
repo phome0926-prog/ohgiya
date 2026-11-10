@@ -148,7 +148,7 @@ p{margin:0 0 12px}
 <header>
   <img src="icon-192.png" alt="">
   <h1>扇屋 法面提案</h1>
-  <span class="ver">v0.11</span>
+  <span class="ver">v0.12</span>
 </header>
 
 <main id="main"><div class="wrap">
@@ -204,7 +204,7 @@ p{margin:0 0 12px}
 <!-- 実績 -->
 <section id="t-cases" hidden>
   <h2>施工・提案の実績</h2>
-  <p class="lead">困りごとで絞り込むと、同じような現場の事例が出ます。<span class="tag">写真差し替え待ち</span></p>
+  <p class="lead">困りごとで絞り込むと、同じような現場の事例が出ます。</p>
   <div class="opts" id="case-filter" style="margin:14px 0 18px"></div>
   <div class="grid" id="cases"></div>
 </section>
@@ -382,7 +382,14 @@ const CASES=[["法面保護工（モルタル吹付）","case1",["mortar"]],["�
  ["石積擁壁のはらみだし対策（岐阜市 岩戸観音周辺）","iwado",[],"参道沿いの空石積のはらみだしです。LiDARで3Dスキャンしてはらみ量の分布を解析し、原因を天端からの雨水浸透と推定しました。景観・樹木・人力施工の条件と風致地区などの法規制を整理し、予算に応じて段階施工できる4案を比較しています。"],
  ["砂防堰堤脇の表層崩壊（郡上市）","gujo",["mat","monorail"],"深さ50cm未満の表層崩壊で、クレーンも吹付機も入らず残土も出せない現場です。原因を降雨時に地山へ水が溜まることと見て、縦排水材＋植生マット＋アンカーピンと横ロープの組み合わせを、モノレール搬入・人力施工で提案しました。"],
  ["民家に近い法面の侵食・落石対策（関市）","seki",["epm"],"法尻から民家まで約1m、車両も吹付機も入らない1:0.6の風化土砂〜軟岩の法面です。人力とロープアクセスで施工できるEPM工法で、侵食と小規模な剥落を抑える計画を立てました。"],
- ["簡易法枠による法面保護（土岐市）","toki",["kanni","drainpipe"],"1:1.2の粘性土で湧水が部分的にある法面です。浅層すべりの安定計算で必要抑止力を求めて枠を設計し、枠内は植生で開放、湧水箇所だけモルタル吹付と水抜きパイプにしました。"]];
+ ["簡易法枠による法面保護（土岐市）","toki",["kanni","drainpipe"],"1:1.2の粘性土で湧水が部分的にある法面です。浅層すべりの安定計算で必要抑止力を求めて枠を設計し、枠内は植生で開放、湧水箇所だけモルタル吹付と水抜きパイプにしました。"],
+ ["アンカー法面の設計変更提案（郡上市 ひるがの高原線）","hirugano",["fukitsuke-waku","anchor"],"設計は現場打ち受圧板＋グラウンドアンカーでした。受圧板を据える盛土のN値が3〜14と低く、地震時の接地圧が支持力の限界に近いこと、段切りの仮掘削が1:0.5になり自立しないことを根拠に、吹付法枠＋アンカーへの変更を発注者とコンサルにVE提案しました。直接工事費は約12%増えますが、施工中の崩壊と将来のアンカー機能喪失を避ける案です。"],
+ ["砂防法面の再崩壊と復旧（山県市）","kurihora",["fukitsuke-waku","mortar"],"既設モルタル吹付を撤去していたところ、受け盤のチャートが前に倒れるように崩れた現場です。上に落石防護柵の擁壁、すぐ横に家屋があるため取り壊しを止め、オーバーハング部を人力で切って一時安定させ、吹付5cm＋ラス張りで仮復旧しました。切土後に測量し、風化と防護柵基礎の崩落を防ぐ法枠を提案しています。"],
+ ["ゴルフ場の法面崩落（三重県）","kyogano",["kanni","nail","drainpipe"],"市道沿いの、のり高約10mの法面崩落です。舗装の下が空洞になり、粘土層の上に水がたまってすべっていることを現地で確かめました。流出計算で排水の規模を出したうえで、切土＋芝、補強土壁の併用、法枠＋ロックボルトの3案を、ゴルフ場と市の役割分担まで整理して提案しました。大型重機が入れないカート道からの施工も前提にしています。"],
+ ["国道363号の道路下法面（瀬戸市）","seto",["fukitsuke-waku"],"隣のモルタル吹付は健全で、崩れたのは未対策の地山部分でした。直径1m前後の転石が多く、舗装からの雨水が法面に流れ込んでいます。道路土工指針の選定フローに沿って、落石対策や吹付だけでは足りないと判断して法枠工を選び、構造計算・数量・概算までまとめてコンサルに提出しました。"],
+ ["公道下の法面崩壊（土岐市 土岐口）","tokiguchi",["kanni"],"2026年9月の雨で崩れ、下の練積擁壁と民家に土砂が入った現場です。元請から受け取った点群から法面の展開図と面積を出し、法枠（300×300）の計算書と復旧検討書をまとめました。土質は現場試験で確かめる前提にしています。"],
+ ["林道切土法面の緑化検討（郡上市 明宝）","gunrin",["kiban"],"標高1,000mを超える林道の切土法面です。土壌硬度と土壌酸度を現地で測り、林道必携の選定フローと寒冷地の条件から、植生基材吹付（t=3cm）と在来種を含む草本の配合を元請の検討報告書にまとめました。"],
+ ["住宅裏の法面・擁壁の調査（各務原市 新鵜沼台）","shinunuma",["anchor"],"土砂災害特別警戒区域に入る住宅裏の法面です。延長約60mのはらみ出し、高さ約1mの滑落崖、縦排水の潰れ、軽量法枠の沈下を確認し、地形図・地質図・ハザードマップと合わせて報告しました。梅雨前の応急養生と、ボーリング調査を前提にした恒久対策を分けて提案しています。"]];
 const KIMG={mortar:"img/hp/mortar-1.jpg",kanni:"img/hp/kanni.jpg","fukitsuke-waku":"img/hp/kanni.jpg",seed:"img/hp/seed.jpg",mat:"img/site/mat.jpg",ropenet:"img/site/ropenet.jpg",newresp:"img/site/newresp.jpg",nail:"img/hp/nail.jpg",anchor:"img/site/anchor.jpg",monorail:"img/hp/monorail.jpg",jet:"img/site/jet.jpg",epm:"img/koho/epm.jpg",drainpipe:"img/koho/drainpipe.jpg",saam:"img/koho/saam.jpg"};
 Object.assign(KIMG,{mortar:"img/hp/mortar-1.jpg","fukitsuke-waku":"img/hp/fukitsuke-waku.jpg",kanni:"img/hp/kanni.jpg",seed:"img/hp/seed.jpg",kiban:"img/hp/kiban.jpg",nail:"img/hp/nail.jpg",anchor:"img/hp/anchor.jpg",monorail:"img/hp/monorail.jpg"});
 const KSRC={epm:"写真：トーエス資料",drainpipe:"写真：ダイカ資料"};
@@ -390,7 +397,7 @@ const loc=(sl,n)=>Array.from({length:n},(_,i)=>`img/cases/${sl}-${i+1}.jpg`);
 const CIMG={case1:[KIMG.mortar],case2:[KIMG.kanni],case3:[KIMG.seed,KIMG.mat],case4:[KIMG.ropenet],case5:[KIMG.newresp],case6:[KIMG.nail,KIMG.anchor,"img/site/anchor-2.jpg","img/site/anchor-3.jpg"],case7:[KIMG.monorail],case8:[KIMG.jet],
  tejikara:loc("tejikara",2),higashikuwabara:loc("higashikuwabara",2),mitsuikitamachi:loc("mitsuikitamachi",2),ichinomiya:loc("ichinomiya",2),iwasaka:loc("iwasaka",2),saam:loc("saam",2),iwado:loc("iwado",2),gujo:loc("gujo",2)};
 const hp=n=>`img/hp/${n}.jpg`;
-Object.assign(CIMG,{case1:[hp("mortar-1"),hp("mortar-2"),hp("mortar-3"),hp("rope")],case2:[hp("kanni"),hp("fukitsuke-waku"),hp("kiban"),hp("waku-drone")],case3:[hp("seed"),"img/site/mat.jpg"],case6:[hp("nail"),hp("anchor"),hp("drill-1"),hp("drill-2"),"img/site/anchor.jpg","img/site/anchor-2.jpg","img/site/anchor-3.jpg"],case7:[hp("monorail")]});
+Object.assign(CIMG,{hirugano:loc("hirugano",1),kurihora:loc("kurihora",4),kyogano:loc("kyogano",3),seto:loc("seto",3),tokiguchi:loc("tokiguchi",1),toki:loc("toki",1),gunrin:loc("gunrin",2),case1:[hp("mortar-1"),hp("mortar-2"),hp("mortar-3"),hp("rope")],case2:[hp("kanni"),hp("fukitsuke-waku"),hp("kiban"),hp("waku-drone")],case3:[hp("seed"),"img/site/mat.jpg"],case6:[hp("nail"),hp("anchor"),hp("drill-1"),hp("drill-2"),"img/site/anchor.jpg","img/site/anchor-2.jpg","img/site/anchor-3.jpg"],case7:[hp("monorail")]});
 const FIMG={veg:"seed",spray:"mortar",frame:"kanni",drain:"drainpipe",rock:"ropenet",soil:"jet",maint:"saam",temp:"monorail"};
 function media(src,zones,alt,note){
  if(!src)return `<div class="media">${fig(zones||[])}</div>`;
@@ -428,8 +435,8 @@ const byId=id=>K.find(k=>k.id===id);
 const eLabel=["","軽","中","重"];
 
 $("#family-summary").innerHTML=FAMILIES.map(f=>`<button class="tile" data-fam="${f.id}"><img loading="lazy" src="${KIMG[FIMG[f.id]]}" alt="" onerror="this.remove()"><span><b>${f.name}</b>${f.desc}</span></button>`).join("");
-const TAGS=[["erosion","侵食"],["surface","表層崩壊"],["aging","老朽化した吹付"],["deep","地すべり・深いすべり"],["rockfall","落石"],["water","湧水・排水"],["wall","擁壁・石積"],["anchorm","アンカー点検"],["ground","地盤改良"],["access","重機が入らない現場"]];
-const CTAGS={case1:["erosion"],case2:["surface","erosion"],case8:["ground"],case7:["access"],case6:["deep","surface"],case5:["aging"],case4:["rockfall"],case3:["erosion"],tejikara:["surface"],higashikuwabara:["erosion","surface","water","access"],mitsuikitamachi:["surface","erosion"],ichinomiya:["erosion","surface","water"],iwasaka:["water"],saam:["anchorm"],iwado:["wall","water","access"],gujo:["surface","water","access"],seki:["erosion","rockfall","access"],toki:["surface","water"]};
+const TAGS=[["erosion","侵食"],["surface","表層崩壊"],["aging","老朽化した吹付"],["deep","地すべり・深いすべり"],["rockfall","落石"],["water","湧水・排水"],["wall","擁壁・石積"],["anchorm","アンカー点検"],["ground","地盤改良"],["access","重機が入らない現場"],["ve","設計の見直しを提案"]];
+const CTAGS={hirugano:["deep","ve"],kurihora:["surface","aging","ve"],kyogano:["surface","water","access"],seto:["surface","rockfall"],tokiguchi:["surface"],gunrin:["erosion"],shinunuma:["deep","wall","water"],case1:["erosion"],case2:["surface","erosion"],case8:["ground"],case7:["access"],case6:["deep","surface"],case5:["aging"],case4:["rockfall"],case3:["erosion"],tejikara:["surface","ve"],higashikuwabara:["erosion","surface","water","access"],mitsuikitamachi:["surface","erosion"],ichinomiya:["erosion","surface","water"],iwasaka:["water"],saam:["anchorm"],iwado:["wall","water","access"],gujo:["surface","water","access"],seki:["erosion","rockfall","access"],toki:["surface","water"]};
 const tagName=id=>TAGS.find(t=>t[0]===id)[1];
 function caseCard([t,slug,ks,story]){
  const im=(CIMG[slug]||[])[0];
@@ -452,7 +459,7 @@ function renderCases(){
 }
 $("#case-filter").addEventListener("click",e=>{const b=e.target.closest("[data-ct]");if(!b)return;caseTag=b.dataset.ct;renderCases();});
 renderCases();
-$("#cases-top").innerHTML=["iwado","tejikara","higashikuwabara"].map(sl=>caseCard(CASES.find(c=>c[1]===sl))).join("");
+$("#cases-top").innerHTML=["hirugano","iwado","kurihora"].map(sl=>caseCard(CASES.find(c=>c[1]===sl))).join("");
 function showTab(t){document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.t===t));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!=="t-"+t);$("#main").scrollTop=0;}
 $("#go-cases").onclick=()=>showTab("cases");
 $("#families").innerHTML=FAMILIES.map(f=>`<div class="family" id="fam-${f.id}"><h3><i style="background:${f.color}"></i>${f.name}</h3><div class="grid">${K.filter(k=>k.f===f.id).map(k=>`<button class="kcard pc" data-k="${k.id}">${media(KIMG[k.id],k.zone,k.name,KSRC[k.id])}<div class="pc-body"><b>${k.name}</b><p>${k.one}</p></div></button>`).join("")}</div></div>`).join("");
